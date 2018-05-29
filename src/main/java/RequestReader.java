@@ -13,7 +13,7 @@ public class RequestReader {
         this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
     }
 
-    public String readRequest() {
+    public HTTPRequest readRequest() {
         StringBuilder request = new StringBuilder();
         String line;
         try {
@@ -25,6 +25,6 @@ public class RequestReader {
         } catch (IOException e) {
             throw new InputStreamException(e);
         }
-        return request.toString();
+        return new HTTPRequest(request.toString());
     }
 }

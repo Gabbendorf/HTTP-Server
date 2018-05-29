@@ -13,9 +13,9 @@ public class RequestReaderTest {
     public void readsRequest() {
         RequestReader requestReader = new RequestReader(inputStream("GET / HTTP/1.1\n"));
 
-        String request = requestReader.readRequest();
+        HTTPRequest request = requestReader.readRequest();
 
-        assertEquals("GET / HTTP/1.1", request);
+        assertEquals("GET / HTTP/1.1", request.line());
     }
 
     @Test(expected = InputStreamException.class)
@@ -36,7 +36,7 @@ public class RequestReaderTest {
         }
 
         @Override
-        public String readRequest() {
+        public HTTPRequest readRequest() {
             throw new InputStreamException(new IOException());
         }
     }
