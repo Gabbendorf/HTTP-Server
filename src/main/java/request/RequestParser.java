@@ -1,3 +1,5 @@
+package request;
+
 public class RequestParser {
 
     private final String lineRequest;

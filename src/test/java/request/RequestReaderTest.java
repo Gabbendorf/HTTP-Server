@@ -1,3 +1,5 @@
+package request;
+
 import exceptions.InputStreamException;
 import org.junit.Test;
 

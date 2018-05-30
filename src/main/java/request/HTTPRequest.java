@@ -1,3 +1,5 @@
+package request;
+
 public class HTTPRequest {
 
     private final RequestParser parser;
