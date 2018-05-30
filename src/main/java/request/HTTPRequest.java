@@ -16,8 +16,8 @@ public class HTTPRequest {
         return parser.parseRoute();
     }
 
-    public String lineRequest() {
-        return parser.parseLineRequest();
+    public String requestLine() {
+        return parser.parseRequestLine();
     }
 
     public String protocolVersion() {

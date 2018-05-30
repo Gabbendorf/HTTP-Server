@@ -37,8 +37,8 @@ public class RequestParserTest {
 
     @Test
     public void getsLineRequest() {
-        String lineRequest = parser.parseLineRequest();
+        String requestLine = parser.parseRequestLine();
 
-        assertEquals("GET / HTTP/1.1", lineRequest);
+        assertEquals("GET / HTTP/1.1", requestLine);
     }
 }

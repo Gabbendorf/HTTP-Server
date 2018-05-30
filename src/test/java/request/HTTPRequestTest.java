@@ -16,7 +16,7 @@ public class HTTPRequestTest {
 
     @Test
     public void getsRequestLine() {
-        String requestLine = httpRequest.lineRequest();
+        String requestLine = httpRequest.requestLine();
 
         assertEquals("GET / HTTP/1.1", requestLine);
     }
