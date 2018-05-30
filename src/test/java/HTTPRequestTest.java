@@ -1,33 +1,42 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class HTTPRequestTest {
 
+    private HTTPRequest httpRequest;
+
+    @Before
+    public void setUpHTTPRequest() {
+        httpRequest = new HTTPRequest(new RequestParser("GET / HTTP/1.1\n"));
+    }
+
     @Test
     public void getsRequestLine() {
-        HTTPRequest httpRequest = new HTTPRequest("GET / HTTP/1.1\n");
+        String requestLine = httpRequest.lineRequest();
 
-        String requestLine = httpRequest.line();
-
-        assertEquals("GET / HTTP/1.1\n", requestLine);
+        assertEquals("GET / HTTP/1.1", requestLine);
     }
 
     @Test
     public void getsRequestVerb() {
-        HTTPRequest httpRequest = new HTTPRequest("GET / HTTP/1.1\n");
+        String method = httpRequest.method();
 
-        String verb = httpRequest.verb();
-
-        assertEquals("GET", verb);
+        assertEquals("GET", method);
     }
 
     @Test
     public void getsRequestRoute() {
-        HTTPRequest httpRequest = new HTTPRequest("GET / HTTP/1.1\n");
-
         String route = httpRequest.route();
 
         assertEquals("/", route);
+    }
+
+    @Test
+    public void getsHTTPVersion() {
+        String httpVersion = httpRequest.protocolVersion();
+
+        assertEquals("HTTP/1.1", httpVersion);
     }
 }

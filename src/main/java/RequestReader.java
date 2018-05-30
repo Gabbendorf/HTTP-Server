@@ -25,6 +25,6 @@ public class RequestReader {
         } catch (IOException e) {
             throw new InputStreamException(e);
         }
-        return new HTTPRequest(request.toString());
+        return new HTTPRequest(new RequestParser(request.toString()));
     }
 }

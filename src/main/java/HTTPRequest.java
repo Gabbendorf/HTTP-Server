@@ -1,22 +1,24 @@
 public class HTTPRequest {
 
-    private final String line;
-    private final String[] singleLineElements;
+    private final RequestParser parser;
 
-    public HTTPRequest(String request) {
-        this.line = request;
-        this.singleLineElements = line.split(" ");
+    public HTTPRequest(RequestParser parser) {
+        this.parser = parser;
     }
 
-    public String line() {
-        return line;
-    }
-
-    public String verb() {
-        return singleLineElements[0];
+    public String method() {
+        return parser.parseMethod();
     }
 
     public String route() {
-        return singleLineElements[1];
+        return parser.parseRoute();
+    }
+
+    public String lineRequest() {
+        return parser.parseLineRequest();
+    }
+
+    public String protocolVersion() {
+        return parser.parseHTTPVersion();
     }
 }
