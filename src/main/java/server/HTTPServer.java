@@ -1,5 +1,6 @@
 package server;
 
+import exceptions.ConnectionException;
 import request.RequestReader;
 import response.ResponseWriter;
 
@@ -18,15 +19,15 @@ public class HTTPServer {
     }
 
     public void start(ServerStatus serverStatus) {
-        try {
-            while (serverStatus.isRunning()) {
+        while (serverStatus.isRunning()) {
+            try {
                 Socket connectedSocket = serverSocket.accept();
                 RequestReader requestReader = new RequestReader(connectedSocket.getInputStream());
                 ResponseWriter responseWriter = new ResponseWriter(connectedSocket.getOutputStream());
                 executor.execute(new ConnectionHandler(requestReader, responseWriter, connectedSocket));
+            } catch (IOException e) {
+                throw new ConnectionException(e);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
