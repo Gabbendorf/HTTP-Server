@@ -2,10 +2,7 @@ package request;
 
 import exceptions.InputStreamException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class RequestReader {
 
@@ -15,18 +12,24 @@ public class RequestReader {
         this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
     }
 
+
     public HTTPRequest readRequest() {
-        StringBuilder request = new StringBuilder();
+        StringBuilder requestLine = new StringBuilder();
         String line;
         try {
-            line = bufferedReader.readLine();
-            while (line != null) {
-                request.append(line);
-                line = bufferedReader.readLine();
+            while ((line = bufferedReader.readLine()) != null) {
+                if (isEndOfHeaders(line)) {
+                    break;
+                }
+                requestLine.append(line);
             }
         } catch (IOException e) {
             throw new InputStreamException(e);
         }
-        return new HTTPRequest(new RequestParser(request.toString()));
+        return new HTTPRequest(new RequestParser(requestLine.toString()));
+    }
+
+    private boolean isEndOfHeaders(String line) {
+        return line.equals("");
     }
 }

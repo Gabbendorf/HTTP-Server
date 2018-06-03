@@ -12,12 +12,12 @@ import static org.junit.Assert.assertEquals;
 public class RequestReaderTest {
 
     @Test
-    public void readsRequest() {
-        RequestReader requestReader = new RequestReader(inputStream("GET / HTTP/1.1\n"));
+    public void readsRequestUntilFindsEmptyLine() {
+        RequestReader requestReader = new RequestReader(inputStream("GET / HTTP/1.1\nhi\n\nciao"));
 
         HTTPRequest request = requestReader.readRequest();
 
-        assertEquals("GET / HTTP/1.1", request.requestLine());
+        assertEquals("GET / HTTP/1.1hi", request.requestLine());
     }
 
     @Test(expected = InputStreamException.class)
