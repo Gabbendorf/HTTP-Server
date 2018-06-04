@@ -11,34 +11,27 @@ public class HTTPRequestTest {
 
     @Before
     public void setUpHTTPRequest() {
-        httpRequest = new HTTPRequest(new RequestParser("GET / HTTP/1.1\n"));
-    }
-
-    @Test
-    public void getsRequestLine() {
-        String requestLine = httpRequest.requestLine();
-
-        assertEquals("GET / HTTP/1.1", requestLine);
+        httpRequest = new HTTPRequest("GET", "/", "HTTP/1.1");
     }
 
     @Test
     public void getsRequestVerb() {
-        String method = httpRequest.method();
+        String method = httpRequest.getMethod();
 
         assertEquals("GET", method);
     }
 
     @Test
     public void getsRequestRoute() {
-        String route = httpRequest.route();
+        String route = httpRequest.getUrl();
 
         assertEquals("/", route);
     }
 
     @Test
-    public void getsHTTPVersion() {
-        String httpVersion = httpRequest.protocolVersion();
+    public void getsRequestLine() {
+        String requestLine = httpRequest.getRequestLine();
 
-        assertEquals("HTTP/1.1", httpVersion);
+        assertEquals("GET / HTTP/1.1", requestLine);
     }
 }

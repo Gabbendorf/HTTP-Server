@@ -16,28 +16,28 @@ public class RequestParserTest {
 
     @Test
     public void parsesRequestMethod() {
-        String method = parser.parseMethod();
+        String method = parser.method();
 
         assertEquals("GET", method);
     }
 
     @Test
-    public void parsesRequestRoute() {
-        String route = parser.parseRoute();
+    public void parsesRequestUrl() {
+        String url = parser.url();
 
-        assertEquals("/", route);
+        assertEquals("/", url);
     }
 
     @Test
     public void parsesProtocolVersion() {
-        String httpVersion = parser.parseHTTPVersion();
+        String httpVersion = parser.HTTPVersion();
 
         assertEquals("HTTP/1.1", httpVersion);
     }
 
     @Test
     public void getsLineRequest() {
-        String requestLine = parser.parseRequestLine();
+        String requestLine = parser.requestLine();
 
         assertEquals("GET / HTTP/1.1", requestLine);
     }

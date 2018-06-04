@@ -2,25 +2,29 @@ package request;
 
 public class RequestParser {
 
-    private final String requestLine;
+    private final String request;
 
     public RequestParser(String request) {
-        this.requestLine = request.split("\n")[0];
+        this.request = request;
     }
 
-    public String parseMethod() {
-        return requestLine.split(" ")[0];
+    public String method() {
+        return requestLineElements()[0];
     }
 
-    public String parseRoute() {
-        return requestLine.split(" ")[1];
+    public String url() {
+        return requestLineElements()[1];
     }
 
-    public String parseHTTPVersion() {
-        return requestLine.split(" ")[2];
+    public String HTTPVersion() {
+        return requestLineElements()[2];
     }
 
-    public String parseRequestLine() {
-        return requestLine;
+    public String requestLine() {
+        return request.split("\n")[0];
+    }
+
+    private String[] requestLineElements() {
+       return requestLine().split(" ");
     }
 }

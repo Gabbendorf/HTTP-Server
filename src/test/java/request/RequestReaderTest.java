@@ -17,7 +17,7 @@ public class RequestReaderTest {
 
         HTTPRequest request = requestReader.readRequest();
 
-        assertEquals("GET / HTTP/1.1hi", request.requestLine());
+        assertEquals("GET / HTTP/1.1hi", request.getRequestLine());
     }
 
     @Test(expected = InputStreamException.class)

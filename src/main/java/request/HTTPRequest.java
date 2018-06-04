@@ -2,25 +2,26 @@ package request;
 
 public class HTTPRequest {
 
-    private final RequestParser parser;
+    private String method;
+    private String url;
+    private String protocolVersion;
+    private static String SPACE = " ";
 
-    public HTTPRequest(RequestParser parser) {
-        this.parser = parser;
+    public HTTPRequest(String method, String url, String protocolVersion) {
+        this.method = method;
+        this.url = url;
+        this.protocolVersion = protocolVersion;
     }
 
-    public String method() {
-        return parser.parseMethod();
+    public String getMethod() {
+        return this.method;
     }
 
-    public String route() {
-        return parser.parseRoute();
+    public String getUrl() {
+        return this.url;
     }
 
-    public String requestLine() {
-        return parser.parseRequestLine();
-    }
-
-    public String protocolVersion() {
-        return parser.parseHTTPVersion();
+    public String getRequestLine() {
+        return getMethod() + SPACE + getUrl() + SPACE + this.protocolVersion;
     }
 }
