@@ -9,6 +9,9 @@ import response.ResponseWriter;
 import java.io.Closeable;
 import java.io.IOException;
 
+import static response.StatusLine.NOT_FOUND;
+import static response.StatusLine.OK;
+
 public class ConnectionHandler implements Runnable {
 
     private final RequestReader requestReader;
@@ -23,13 +26,21 @@ public class ConnectionHandler implements Runnable {
 
     @Override
     public void run() {
-        requestReader.readRequest();
-        HTTPResponse response = new HTTPResponse("200", "OK");
+        HTTPRequest request = requestReader.readRequest();
+        HTTPResponse response = new HTTPResponse(route(request));
         responseWriter.write(response.statusLine());
         try {
             socket.close();
         } catch (IOException e) {
             throw new SocketClosureException(e);
+        }
+    }
+
+    private String route(HTTPRequest request) {
+        if (!request.getUrl().equals("/") && (request.getMethod().equals("HEAD"))) {
+            return NOT_FOUND.statusLine;
+        } else {
+            return OK.statusLine;
         }
     }
 }

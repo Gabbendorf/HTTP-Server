@@ -65,7 +65,7 @@ public class ConnectionHandlerTest {
         @Override
         public HTTPRequest readRequest() {
             hasRead = true;
-            return null;
+            return new HTTPRequest("GET", "/", "HTTP/1.1");
         }
     }
 
