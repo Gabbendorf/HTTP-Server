@@ -3,7 +3,12 @@ package request;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RequestParserTest {
 
@@ -11,7 +16,8 @@ public class RequestParserTest {
 
     @Before
     public void setUpParser() {
-        parser = new RequestParser("GET / HTTP/1.1");
+        List<String> request = Arrays.asList("GET / HTTP/1.1", "Host: localhost", "Cookie: type=chocolate");
+        parser = new RequestParser(request);
     }
 
     @Test
@@ -36,9 +42,10 @@ public class RequestParserTest {
     }
 
     @Test
-    public void getsLineRequest() {
-        String requestLine = parser.requestLine();
+    public void parsesHeaders() {
+        Map<String, String> headers = parser.headers();
 
-        assertEquals("GET / HTTP/1.1", requestLine);
+        assertTrue(headers.containsKey("Host"));
+        assertTrue(headers.containsKey("Cookie"));
     }
 }

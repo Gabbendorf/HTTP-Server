@@ -8,6 +8,8 @@ import request.RequestReader;
 import response.ResponseWriter;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
@@ -65,7 +67,10 @@ public class ConnectionHandlerTest {
         @Override
         public HTTPRequest readRequest() {
             hasRead = true;
-            return new HTTPRequest("GET", "/", "HTTP/1.1");
+            Map<String, String> headers = new HashMap<String, String>() {{
+                put("", "");
+            }};
+            return new HTTPRequest("", "", "", headers);
         }
     }
 

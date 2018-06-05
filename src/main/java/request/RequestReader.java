@@ -3,6 +3,7 @@ package request;
 import exceptions.InputStreamException;
 
 import java.io.*;
+import java.util.*;
 
 public class RequestReader {
 
@@ -14,20 +15,20 @@ public class RequestReader {
 
 
     public HTTPRequest readRequest() {
-        StringBuilder requestLine = new StringBuilder();
+        List<String> request = new ArrayList<>();
         String line;
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 if (isEndOfHeaders(line)) {
                     break;
                 }
-                requestLine.append(line);
+                request.add(line);
             }
         } catch (IOException e) {
             throw new InputStreamException(e);
         }
-        RequestParser parser = new RequestParser(requestLine.toString());
-        return new HTTPRequest(parser.method(), parser.url(), parser.HTTPVersion());
+        RequestParser parser = new RequestParser(request);
+        return new HTTPRequest(parser.method(), parser.url(), parser.HTTPVersion(), parser.headers());
     }
 
     private boolean isEndOfHeaders(String line) {

@@ -3,7 +3,10 @@ package request;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.*;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class HTTPRequestTest {
 
@@ -11,7 +14,9 @@ public class HTTPRequestTest {
 
     @Before
     public void setUpHTTPRequest() {
-        httpRequest = new HTTPRequest("GET", "/", "HTTP/1.1");
+        Map<String, String> headers = new LinkedHashMap<>();
+        headers.put("Localhost", "/");
+        httpRequest = new HTTPRequest("GET", "/", "HTTP/1.1", headers);
     }
 
     @Test
@@ -33,5 +38,12 @@ public class HTTPRequestTest {
         String requestLine = httpRequest.getRequestLine();
 
         assertEquals("GET / HTTP/1.1", requestLine);
+    }
+
+    @Test
+    public void getsHeaders() {
+        Map<String, String> headers = httpRequest.getHeaders();
+
+        assertTrue(headers.containsKey("Localhost"));
     }
 }
