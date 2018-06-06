@@ -27,10 +27,10 @@ public class HTTPRequestTest {
     }
 
     @Test
-    public void getsRequestRoute() {
-        String route = httpRequest.getUrl();
+    public void getsRequestPath() {
+        String path = httpRequest.getPath();
 
-        assertEquals("/", route);
+        assertEquals("/", path);
     }
 
     @Test

@@ -5,14 +5,14 @@ import java.util.Map;
 public class HTTPRequest {
 
     private String method;
-    private String url;
+    private String path;
     private String protocolVersion;
     private Map<String, String> headers;
     private static String SPACE = " ";
 
-    public HTTPRequest(String method, String url, String protocolVersion, Map<String, String> headers) {
+    public HTTPRequest(String method, String path, String protocolVersion, Map<String, String> headers) {
         this.method = method;
-        this.url = url;
+        this.path = path;
         this.protocolVersion = protocolVersion;
         this.headers = headers;
     }
@@ -21,12 +21,12 @@ public class HTTPRequest {
         return this.method;
     }
 
-    public String getUrl() {
-        return this.url;
+    public String getPath() {
+        return this.path;
     }
 
     public String getRequestLine() {
-        return getMethod() + SPACE + getUrl() + SPACE + this.protocolVersion;
+        return getMethod() + SPACE + getPath() + SPACE + this.protocolVersion;
     }
 
     public Map<String, String> getHeaders() {

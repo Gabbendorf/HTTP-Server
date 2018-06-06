@@ -28,10 +28,10 @@ public class RequestParserTest {
     }
 
     @Test
-    public void parsesRequestUrl() {
-        String url = parser.url();
+    public void parsesRequestPath() {
+        String path = parser.path();
 
-        assertEquals("/", url);
+        assertEquals("/", path);
     }
 
     @Test

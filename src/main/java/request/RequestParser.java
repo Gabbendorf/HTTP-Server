@@ -18,7 +18,7 @@ public class RequestParser {
         return requestLineElements()[0];
     }
 
-    public String url() {
+    public String path() {
         return requestLineElements()[1];
     }
 
