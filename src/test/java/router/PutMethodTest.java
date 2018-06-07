@@ -20,8 +20,8 @@ public class PutMethodTest {
     }
 
     @Test
-    public void respondsWithOk() {
-        HTTPResponse response = put.dispatch(newRequest("/"));
+    public void respondsWithOkForPutTargetPath() {
+        HTTPResponse response = put.dispatch(newRequest("/put-target"));
 
         assertEquals("200 OK", response.getStatusLine());
     }
@@ -38,6 +38,13 @@ public class PutMethodTest {
         HTTPResponse response = put.dispatch(newRequest("/method_options2"));
 
         assertEquals("405 Method Not Allowed", response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithNotFoundAsDefault() {
+        HTTPResponse response = put.dispatch(newRequest("/not-existing"));
+
+        assertEquals("404 Not Found", response.getStatusLine());
     }
 
     private HTTPRequest newRequest(String path) {
