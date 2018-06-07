@@ -20,8 +20,8 @@ public class PostMethodTest {
     }
 
     @Test
-    public void respondsWithOk() {
-        HTTPResponse response = post.dispatch(newRequest("/"));
+    public void respondsWithOkForFormPath() {
+        HTTPResponse response = post.dispatch(newRequest("/form"));
 
         assertEquals("200 OK", response.getStatusLine());
     }
@@ -38,6 +38,13 @@ public class PostMethodTest {
         HTTPResponse response = post.dispatch(newRequest("/method_options2"));
 
         assertEquals("405 Method Not Allowed", response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithNotFoundAsDefault() {
+        HTTPResponse response = post.dispatch(newRequest("not-existing"));
+
+        assertEquals("404 Not Found", response.getStatusLine());
     }
 
     private HTTPRequest newRequest(String path) {

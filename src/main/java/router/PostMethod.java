@@ -4,6 +4,7 @@ import request.HTTPRequest;
 import response.HTTPResponse;
 
 import static response.StatusLine.NOT_ALLOWED;
+import static response.StatusLine.NOT_FOUND;
 import static response.StatusLine.OK;
 
 public class PostMethod implements HTTPMethod {
@@ -16,8 +17,10 @@ public class PostMethod implements HTTPMethod {
                 return new HTTPResponse(OK);
             case "/method_options2":
                 return new HTTPResponse(NOT_ALLOWED);
-            default:
+            case "/form":
                 return new HTTPResponse(OK);
+            default:
+                return new HTTPResponse(NOT_FOUND);
         }
     }
 }
