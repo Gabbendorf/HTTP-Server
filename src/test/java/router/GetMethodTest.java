@@ -44,8 +44,22 @@ public class GetMethodTest {
     }
 
     @Test
-    public void respondsWithOk() {
+    public void respondsWithOkForHomePath() {
         HTTPResponse response = get.dispatch(newRequest("/"));
+
+        assertEquals("200 OK", response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithOkForMethodOptionsPath() {
+        HTTPResponse response = get.dispatch(newRequest("/method_options"));
+
+        assertEquals("200 OK", response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithOkForMethodOptions2Path() {
+        HTTPResponse response = get.dispatch(newRequest("/method_options2"));
 
         assertEquals("200 OK", response.getStatusLine());
     }

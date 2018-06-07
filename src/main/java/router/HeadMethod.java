@@ -10,12 +10,16 @@ public class HeadMethod implements HTTPMethod {
 
     @Override
     public HTTPResponse dispatch(HTTPRequest request) {
-        HTTPResponse response;
-        if (request.getPath().equals("/")) {
-            response = new HTTPResponse(OK);
-        } else {
-            response = new HTTPResponse(NOT_FOUND);
+        String path = request.getPath();
+        switch (path) {
+            case "/":
+                return new HTTPResponse(OK);
+            case "/method_options2":
+                return new HTTPResponse(OK);
+            case "/method_options":
+                return new HTTPResponse(OK);
+            default:
+                return new HTTPResponse(NOT_FOUND);
         }
-        return response;
     }
 }

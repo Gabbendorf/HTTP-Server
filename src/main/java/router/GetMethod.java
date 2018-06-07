@@ -19,6 +19,10 @@ public class GetMethod implements HTTPMethod {
                 return new HTTPResponse(FOUND, "Location: /", "");
             case "/eat_cookie":
                 return new HTTPResponse(OK, "Cookie: type=chocolate", "mmmm chocolate");
+            case "/method_options2":
+                return new HTTPResponse(OK);
+            case "/method_options":
+                return new HTTPResponse(OK);
             case "/":
                 return new HTTPResponse(OK);
             default:

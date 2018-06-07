@@ -1,5 +1,6 @@
 package router;
 
+import org.junit.Before;
 import org.junit.Test;
 import request.HTTPRequest;
 import response.HTTPResponse;
@@ -11,19 +12,36 @@ import static org.junit.Assert.assertEquals;
 
 public class HeadMethodTest {
 
-    @Test
-    public void respondsWithOk() {
-        HeadMethod head = new HeadMethod();
+    private HeadMethod head;
 
+    @Before
+    public void createInstance() {
+        head = new HeadMethod();
+    }
+
+    @Test
+    public void respondsWithOkForHomePath() {
         HTTPResponse response = head.dispatch(newRequest("/"));
 
         assertEquals("200 OK", response.getStatusLine());
     }
 
     @Test
-    public void respondsWithNotFound() {
-        HeadMethod head = new HeadMethod();
+    public void respondsWithOkForMethodOptions2Path() {
+        HTTPResponse response = head.dispatch(newRequest("/method_options2"));
 
+        assertEquals("200 OK", response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithOkForMethodOptionsPath() {
+        HTTPResponse response = head.dispatch(newRequest("/method_options"));
+
+        assertEquals("200 OK", response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithNotFoundAsDefault() {
         HTTPResponse response = head.dispatch(newRequest("/not-existing"));
 
         assertEquals("404 Not Found", response.getStatusLine());
