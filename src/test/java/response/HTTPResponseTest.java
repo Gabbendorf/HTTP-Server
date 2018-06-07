@@ -7,9 +7,16 @@ import static org.junit.Assert.assertEquals;
 public class HTTPResponseTest {
 
     @Test
-    public void getsStatusLine() {
+    public void responseIsStatusLine() {
         HTTPResponse response = new HTTPResponse("200 OK");
 
-        assertEquals("HTTP/1.1 200 OK", response.statusLine());
+        assertEquals("HTTP/1.1 200 OK", response.getResponse());
+    }
+
+    @Test
+    public void responseIsStatusLineWithHeaders() {
+       HTTPResponse response = new HTTPResponse("200 OK", "header: ");
+
+       assertEquals("HTTP/1.1 200 OK\nheader: ", response.getResponse());
     }
 }
