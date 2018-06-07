@@ -12,9 +12,9 @@ public class HeadMethod implements HTTPMethod {
     public HTTPResponse dispatch(HTTPRequest request) {
         HTTPResponse response;
         if (request.getPath().equals("/")) {
-            response = new HTTPResponse(OK.statusLine);
+            response = new HTTPResponse(OK);
         } else {
-            response = new HTTPResponse(NOT_FOUND.statusLine);
+            response = new HTTPResponse(NOT_FOUND);
         }
         return response;
     }

@@ -6,9 +6,9 @@ public enum StatusLine {
     NOT_FOUND("404 Not Found"),
     FOUND("302 Found");
 
-    StatusLine(String codeAndMessage) {
-        statusLine = codeAndMessage;
+    StatusLine(String statusLine) {
+        toString = statusLine;
     }
 
-    public final String statusLine;
+    public final String toString;
 }

@@ -9,6 +9,6 @@ public class PostMethod implements HTTPMethod {
 
     @Override
     public HTTPResponse dispatch(HTTPRequest request) {
-        return new HTTPResponse(OK.statusLine);
+        return new HTTPResponse(OK);
     }
 }

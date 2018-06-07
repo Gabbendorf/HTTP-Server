@@ -3,21 +3,24 @@ package response;
 public class HTTPResponse {
 
     private static String PROTOCOL_VERSION = "HTTP/1.1 ";
+    private ResponseParser responseParser;
     private String body;
     private String headers;
     private String statusLine;
     private String response;
 
-    public HTTPResponse(String statusLine) {
-        this.statusLine = statusLine;
-        this.response = PROTOCOL_VERSION + statusLine;
+    public HTTPResponse(StatusLine statusLine) {
+        this.responseParser = new ResponseParser(statusLine);
+        this.statusLine = responseParser.statusLine();
+        this.response = PROTOCOL_VERSION + this.statusLine;
     }
 
-    public HTTPResponse(String statusLine, String headers, String body) {
-        this.statusLine = statusLine;
+    public HTTPResponse(StatusLine statusLine, String headers, String body) {
+        this.responseParser = new ResponseParser(statusLine);
+        this.statusLine = responseParser.statusLine();
         this.headers = headers;
         this.body = body;
-        this.response = PROTOCOL_VERSION + statusLine + "\n" + headers + "\r\n\r\n" + body;
+        this.response = PROTOCOL_VERSION + this.statusLine + "\n" + headers + "\r\n\r\n" + body;
     }
 
     public String getResponse() {
