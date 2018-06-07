@@ -43,6 +43,13 @@ public class MethodFactoryTest {
     }
 
     @Test
+    public void createsOptionsHTTPMethod() {
+        HTTPMethod optionsMethod = methodFactory.create("OPTIONS");
+
+        assertTrue(optionsMethod instanceof OptionsMethod);
+    }
+
+    @Test
     public void createsHeadHTTPMethodAsDefault() {
         HTTPMethod defaultMethod = methodFactory.create("SOMETHING");
 

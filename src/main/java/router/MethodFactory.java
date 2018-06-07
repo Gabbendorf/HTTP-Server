@@ -12,6 +12,8 @@ public class MethodFactory {
                 return new PostMethod();
             case "PUT":
                 return new PutMethod();
+            case "OPTIONS":
+                return new OptionsMethod();
             default:
                 return new HeadMethod();
         }
