@@ -6,14 +6,11 @@ public class HTTPRequest {
 
     private String method;
     private String path;
-    private String protocolVersion;
     private Map<String, String> headers;
-    private static String SPACE = " ";
 
-    public HTTPRequest(String method, String path, String protocolVersion, Map<String, String> headers) {
+    public HTTPRequest(String method, String path, Map<String, String> headers) {
         this.method = method;
         this.path = path;
-        this.protocolVersion = protocolVersion;
         this.headers = headers;
     }
 
@@ -26,7 +23,9 @@ public class HTTPRequest {
     }
 
     public String getRequestLine() {
-        return getMethod() + SPACE + getPath() + SPACE + this.protocolVersion;
+        String protocolVersion = "HTTP/1.1";
+        String SPACE = " ";
+        return getMethod() + SPACE + getPath() + SPACE + protocolVersion;
     }
 
     public Map<String, String> getHeaders() {

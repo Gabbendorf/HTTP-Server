@@ -35,13 +35,6 @@ public class RequestParserTest {
     }
 
     @Test
-    public void parsesProtocolVersion() {
-        String httpVersion = parser.HTTPVersion();
-
-        assertEquals("HTTP/1.1", httpVersion);
-    }
-
-    @Test
     public void parsesHeaders() {
         Map<String, String> headers = parser.headers();
 

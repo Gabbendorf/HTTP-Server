@@ -24,6 +24,6 @@ public class PostMethodTest {
         Map<String, String> headers = new HashMap<String, String>() {{
             put("", "");
         }};
-        return new HTTPRequest("HEAD", path, "HTTP/1.1", headers);
+        return new HTTPRequest("HEAD", path, headers);
     }
 }

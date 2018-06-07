@@ -16,7 +16,7 @@ public class HTTPRequestTest {
     public void setUpHTTPRequest() {
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("Localhost", "/");
-        httpRequest = new HTTPRequest("GET", "/", "HTTP/1.1", headers);
+        httpRequest = new HTTPRequest("GET", "/", headers);
     }
 
     @Test

@@ -24,6 +24,6 @@ public class RouterTest {
         Map<String, String> headers = new HashMap<String, String>() {{
             put("", "");
         }};
-        return new HTTPRequest(method, path, "HTTP/1.1", headers);
+        return new HTTPRequest(method, path, headers);
     }
 }

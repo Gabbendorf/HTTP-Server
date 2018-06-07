@@ -28,7 +28,7 @@ public class RequestReader {
             throw new InputStreamException(e);
         }
         RequestParser parser = new RequestParser(request);
-        return new HTTPRequest(parser.method(), parser.path(), parser.HTTPVersion(), parser.headers());
+        return new HTTPRequest(parser.method(), parser.path(), parser.headers());
     }
 
     private boolean isEndOfHeaders(String line) {

@@ -22,10 +22,6 @@ public class RequestParser {
         return requestLineElements()[1];
     }
 
-    public String HTTPVersion() {
-        return requestLineElements()[2];
-    }
-
     public Map<String, String> headers() {
         Map<String, String> parsedHeaders = new LinkedHashMap<>();
         for (int i = 1; i < request.size(); i++) {

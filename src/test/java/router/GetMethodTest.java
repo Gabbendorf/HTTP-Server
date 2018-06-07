@@ -61,6 +61,6 @@ public class GetMethodTest {
         Map<String, String> headers = new HashMap<String, String>() {{
             put("", "");
         }};
-        return new HTTPRequest("GET", path, "HTTP/1.1", headers);
+        return new HTTPRequest("GET", path, headers);
     }
 }

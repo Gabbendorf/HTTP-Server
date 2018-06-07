@@ -70,7 +70,7 @@ public class ConnectionHandlerTest {
             Map<String, String> headers = new HashMap<String, String>() {{
                 put("", "");
             }};
-            return new HTTPRequest("", "", "", headers);
+            return new HTTPRequest("", "", headers);
         }
     }
 
