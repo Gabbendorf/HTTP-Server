@@ -50,9 +50,9 @@ public class MethodFactoryTest {
     }
 
     @Test
-    public void createsHeadHTTPMethodAsDefault() {
-        HTTPMethod defaultMethod = methodFactory.create("SOMETHING");
+    public void createsBogusMethodAsDefault() {
+        HTTPMethod bogusMethod = methodFactory.create("SOMETHING");
 
-        assertTrue(defaultMethod instanceof HeadMethod);
+        assertTrue(bogusMethod instanceof BogusMethod);
     }
 }

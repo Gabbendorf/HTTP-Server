@@ -8,8 +8,8 @@ public enum StatusLine {
     NOT_ALLOWED("405 Method Not Allowed");
 
     StatusLine(String statusLine) {
-        toString = statusLine;
+        message = statusLine;
     }
 
-    public final String toString;
+    public final String message;
 }

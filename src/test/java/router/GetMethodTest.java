@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static response.StatusLine.NOT_FOUND;
+import static response.StatusLine.OK;
 
 public class GetMethodTest {
 
@@ -47,28 +49,42 @@ public class GetMethodTest {
     public void respondsWithOkForHomePath() {
         HTTPResponse response = get.dispatch(newRequest("/"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkForMethodOptionsPath() {
         HTTPResponse response = get.dispatch(newRequest("/method_options"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkForMethodOptions2Path() {
         HTTPResponse response = get.dispatch(newRequest("/method_options2"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithOkForFile1Path() {
+        HTTPResponse response = get.dispatch(newRequest("/file1"));
+
+        assertEquals(OK.message, response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithOkForTextFilePath() {
+        HTTPResponse response = get.dispatch(newRequest("/text-file.txt"));
+
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithNotFound() {
         HTTPResponse response = get.dispatch(newRequest("/not-existing"));
 
-        assertEquals("404 Not Found", response.getStatusLine());
+        assertEquals(NOT_FOUND.message, response.getStatusLine());
     }
 
     private HTTPRequest newRequest(String path) {

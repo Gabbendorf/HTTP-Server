@@ -19,6 +19,10 @@ public class PostMethod implements HTTPMethod {
                 return new HTTPResponse(NOT_ALLOWED);
             case "/form":
                 return new HTTPResponse(OK);
+            case "/file1":
+                return new HTTPResponse(NOT_ALLOWED);
+            case "/text-file.txt":
+                return new HTTPResponse(NOT_ALLOWED);
             default:
                 return new HTTPResponse(NOT_FOUND);
         }

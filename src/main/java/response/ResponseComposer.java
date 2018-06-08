@@ -18,7 +18,7 @@ public class ResponseComposer {
     }
 
     public String statusLine() {
-        return statusLine.toString;
+        return statusLine.message;
     }
 
     public String response() {

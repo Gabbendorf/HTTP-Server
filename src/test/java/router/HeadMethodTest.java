@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static response.StatusLine.NOT_ALLOWED;
+import static response.StatusLine.NOT_FOUND;
+import static response.StatusLine.OK;
 
 public class HeadMethodTest {
 
@@ -23,28 +26,35 @@ public class HeadMethodTest {
     public void respondsWithOkForHomePath() {
         HTTPResponse response = head.dispatch(newRequest("/"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkForMethodOptions2Path() {
         HTTPResponse response = head.dispatch(newRequest("/method_options2"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkForMethodOptionsPath() {
         HTTPResponse response = head.dispatch(newRequest("/method_options"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithNotAllowedForFile1Path() {
+        HTTPResponse response = head.dispatch(newRequest("/file1"));
+
+        assertEquals(NOT_ALLOWED.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithNotFoundAsDefault() {
         HTTPResponse response = head.dispatch(newRequest("/not-existing"));
 
-        assertEquals("404 Not Found", response.getStatusLine());
+        assertEquals(NOT_FOUND.message, response.getStatusLine());
     }
 
     private HTTPRequest newRequest(String path) {

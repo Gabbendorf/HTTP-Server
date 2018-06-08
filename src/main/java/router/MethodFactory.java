@@ -15,7 +15,7 @@ public class MethodFactory {
             case "OPTIONS":
                 return new OptionsMethod();
             default:
-                return new HeadMethod();
+                return new BogusMethod();
         }
     }
 }

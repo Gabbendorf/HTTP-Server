@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static response.StatusLine.NOT_ALLOWED;
+import static response.StatusLine.NOT_FOUND;
+import static response.StatusLine.OK;
 
 public class PostMethodTest {
 
@@ -23,28 +26,42 @@ public class PostMethodTest {
     public void respondsWithOkForFormPath() {
         HTTPResponse response = post.dispatch(newRequest("/form"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkForMethodOptionsPath() {
         HTTPResponse response = post.dispatch(newRequest("/method_options"));
 
-        assertEquals("200 OK", response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithNotAllowedForMethodOptions2Path() {
         HTTPResponse response = post.dispatch(newRequest("/method_options2"));
 
-        assertEquals("405 Method Not Allowed", response.getStatusLine());
+        assertEquals(NOT_ALLOWED.message, response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithNotAllowedForFile1Path() {
+        HTTPResponse response = post.dispatch(newRequest("/file1"));
+
+        assertEquals(NOT_ALLOWED.message, response.getStatusLine());
+    }
+
+    @Test
+    public void respondsWithNotAllowedForTextFilePath() {
+        HTTPResponse response = post.dispatch(newRequest("/text-file.txt"));
+
+        assertEquals(NOT_ALLOWED.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithNotFoundAsDefault() {
         HTTPResponse response = post.dispatch(newRequest("not-existing"));
 
-        assertEquals("404 Not Found", response.getStatusLine());
+        assertEquals(NOT_FOUND.message, response.getStatusLine());
     }
 
     private HTTPRequest newRequest(String path) {

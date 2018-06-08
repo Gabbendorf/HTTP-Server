@@ -23,6 +23,10 @@ public class GetMethod implements HTTPMethod {
                 return new HTTPResponse(OK);
             case "/method_options":
                 return new HTTPResponse(OK);
+            case "/file1":
+                return new HTTPResponse(OK);
+            case "/text-file.txt":
+                return new HTTPResponse(OK);
             case "/":
                 return new HTTPResponse(OK);
             default:
