@@ -14,6 +14,11 @@ public class HTTPRequest {
         this.headers = headers;
     }
 
+    public HTTPRequest(String method, String path) {
+        this.method = method;
+        this.path = path;
+    }
+
     public String getMethod() {
         return this.method;
     }

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static controllers.HTTPMethod.GET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -16,7 +17,7 @@ public class HTTPRequestTest {
     public void setUpHTTPRequest() {
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("Localhost", "/");
-        httpRequest = new HTTPRequest("GET", "/", headers);
+        httpRequest = new HTTPRequest(GET.method, "/", headers);
     }
 
     @Test

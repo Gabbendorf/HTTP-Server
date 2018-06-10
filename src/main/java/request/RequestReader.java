@@ -13,7 +13,6 @@ public class RequestReader {
         this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
     }
 
-
     public HTTPRequest readRequest() {
         List<String> request = new ArrayList<>();
         String line;

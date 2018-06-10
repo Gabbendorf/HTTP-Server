@@ -5,16 +5,10 @@ import request.HTTPRequest;
 import request.RequestReader;
 import response.HTTPResponse;
 import response.ResponseWriter;
-import router.HTTPMethod;
-import router.MethodFactory;
 import router.Router;
 
 import java.io.Closeable;
 import java.io.IOException;
-
-import static response.StatusLine.FOUND;
-import static response.StatusLine.NOT_FOUND;
-import static response.StatusLine.OK;
 
 public class ConnectionHandler implements Runnable {
 

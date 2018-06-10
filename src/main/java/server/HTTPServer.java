@@ -3,7 +3,6 @@ package server;
 import exceptions.ConnectionException;
 import request.RequestReader;
 import response.ResponseWriter;
-import router.Router;
 
 import java.io.IOException;
 import java.net.ServerSocket;

@@ -1,19 +1,25 @@
 package router;
 
+import controllers.*;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
+import java.util.Map;
+
 public class Router {
 
-    private final MethodFactory methodFactory;
+    private final Map<String, Controller> controllers;
 
     public Router() {
-        this.methodFactory = new MethodFactory();
+        this.controllers = new Configuration().setControllers();
     }
 
     public HTTPResponse route(HTTPRequest request) {
-        String method = request.getMethod();
-        HTTPMethod httpMethod = methodFactory.create(method);
-        return httpMethod.dispatch(request);
+        Controller controller = getController(request.getPath());
+        return controller.respondTo(request);
+    }
+
+    private Controller getController(String requestPath) {
+        return controllers.getOrDefault(requestPath, new NotFoundPage());
     }
 }

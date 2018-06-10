@@ -1,29 +1,49 @@
 package router;
 
+import controllers.HTTPMethod;
+import org.junit.Before;
 import org.junit.Test;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import static controllers.HTTPMethod.GET;
+import static controllers.HTTPMethod.INVALID;
 import static org.junit.Assert.assertEquals;
+import static response.StatusLine.NOT_ALLOWED;
+import static response.StatusLine.NOT_FOUND;
+import static response.StatusLine.OK;
 
 public class RouterTest {
 
-    @Test
-    public void routesRequestAndProvidesResponse() {
-        Router router = new Router();
+    private Router router;
 
-        HTTPResponse response = router.route(newRequest("GET", "/"));
-
-        assertEquals("HTTP/1.1 200 OK", response.getResponse());
+    @Before
+    public void createInstance() {
+        router = new Router();
     }
 
-    private HTTPRequest newRequest(String method, String path) {
-        Map<String, String> headers = new HashMap<String, String>() {{
-            put("", "");
-        }};
-        return new HTTPRequest(method, path, headers);
+    @Test
+    public void routesRequestAndProvidesResponse() {
+        HTTPResponse response = router.route(newRequest(GET, "/"));
+
+        assertEquals(OK.statusLine, response.getStatusLine());
+    }
+
+    @Test
+    public void responseIsNotAllowedIfInvalidMethod() {
+        HTTPResponse response = router.route((newRequest(INVALID, "/")));
+
+        assertEquals(NOT_ALLOWED.statusLine, response.getStatusLine());
+    }
+
+    @Test
+    public void responseIsNotFoundIfNotExistingPath() {
+        HTTPResponse response = router.route(newRequest(GET, "/not-existing"));
+
+        assertEquals(NOT_FOUND.statusLine, response.getStatusLine());
+    }
+
+    private HTTPRequest newRequest(HTTPMethod method, String path) {
+        return new HTTPRequest(method.name(), path);
     }
 }
