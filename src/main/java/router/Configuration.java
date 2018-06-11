@@ -19,6 +19,8 @@ public class Configuration {
         controllers.put("/put-target", new PutTargetPage());
         controllers.put("/file1", new FilePage());
         controllers.put("/text-file.txt", new FilePage());
+        controllers.put("/coffee", new TeaPage());
+        controllers.put("/tea", new TeaPage());
         return controllers;
     }
 }
