@@ -16,9 +16,16 @@ public class HTTPResponseTest {
 
     @Test
     public void responseIsStatusLineWithHeadersAndBody() {
-        HTTPResponse response = new HTTPResponse(OK, "header", "hi");
+        HTTPResponse response = new HTTPResponse(OK, "header", "body");
 
-        assertEquals("HTTP/1.1 200 OK\nheader\r\n\r\nhi", response.getResponse());
+        assertEquals("HTTP/1.1 200 OK\nheader\r\n\r\nbody", response.getResponse());
+    }
+
+    @Test
+    public void responseIsStatusLineWithBody() {
+        HTTPResponse response = new HTTPResponse(OK, "body");
+
+        assertEquals("HTTP/1.1 200 OK\n\r\n\r\nbody", response.getResponse());
     }
 
     @Test

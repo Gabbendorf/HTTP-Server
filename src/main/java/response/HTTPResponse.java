@@ -2,7 +2,6 @@ package response;
 
 public class HTTPResponse {
 
-    private static String PROTOCOL_VERSION = "HTTP/1.1 ";
     private ResponseComposer responseComposer;
     private String body;
     private String headers;
@@ -10,17 +9,24 @@ public class HTTPResponse {
     private String response;
 
     public HTTPResponse(StatusLine statusLine) {
-        this.responseComposer = new ResponseComposer(statusLine);
-        this.statusLine = responseComposer.statusLine();
-        this.response = PROTOCOL_VERSION + this.statusLine;
+        this.responseComposer = new ResponseComposer();
+        this.statusLine = responseComposer.prepare(statusLine);
+        this.response = responseComposer.composeWith(statusLine);
     }
 
     public HTTPResponse(StatusLine statusLine, String headers, String body) {
-        this.responseComposer = new ResponseComposer(statusLine, headers, body);
-        this.statusLine = responseComposer.statusLine();
+        this.responseComposer = new ResponseComposer();
+        this.statusLine = responseComposer.prepare(statusLine);
         this.headers = headers;
         this.body = body;
-        this.response = responseComposer.response();
+        this.response = responseComposer.composeWith(statusLine, headers, body);
+    }
+
+    public HTTPResponse(StatusLine statusLine, String body) {
+        this.responseComposer = new ResponseComposer();
+        this.statusLine = responseComposer.prepare(statusLine);
+        this.body = body;
+        this.response = responseComposer.composeWith(statusLine, body);
     }
 
     public String getResponse() {
