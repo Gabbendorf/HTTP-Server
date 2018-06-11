@@ -2,26 +2,23 @@ package response;
 
 public class ResponseComposer {
 
-    private StatusLine statusLine;
-    private String headers;
-    private String body;
     private static String PROTOCOL_VERSION = "HTTP/1.1 ";
+    private static String NEW_LINE = "\n";
+    private static String DOUBLE_NEW_LINE = "\r\n\r\n";
 
-    public ResponseComposer(StatusLine statusLine) {
-        this.statusLine = statusLine;
+    public String composeWith(StatusLine statusLine) {
+        return PROTOCOL_VERSION + prepare(statusLine);
     }
 
-    public ResponseComposer(StatusLine statusLine, String headers, String body) {
-        this.statusLine = statusLine;
-        this.headers = headers;
-        this.body = body;
+    public String composeWith(StatusLine statusLine, String body) {
+        return PROTOCOL_VERSION + prepare(statusLine) + NEW_LINE + DOUBLE_NEW_LINE + body;
     }
 
-    public String statusLine() {
-        return statusLine.statusLine;
+    public String composeWith(StatusLine statusLine, String headers, String body) {
+        return PROTOCOL_VERSION + prepare(statusLine) + NEW_LINE + headers + DOUBLE_NEW_LINE + body;
     }
 
-    public String response() {
-        return PROTOCOL_VERSION + statusLine() + "\n" + headers + "\r\n\r\n" + body;
+    public String prepare(StatusLine statusLine) {
+        return statusLine.message;
     }
 }
