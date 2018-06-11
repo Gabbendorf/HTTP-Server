@@ -7,9 +7,9 @@ public enum StatusLine {
     FOUND("302 Found"),
     NOT_ALLOWED("405 Method Not Allowed");
 
-    StatusLine(String message) {
-        statusLine = message;
+    StatusLine(String statusLine) {
+        message = statusLine;
     }
 
-    public final String statusLine;
+    public final String message;
 }

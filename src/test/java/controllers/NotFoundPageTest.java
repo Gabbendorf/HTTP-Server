@@ -23,13 +23,13 @@ public class NotFoundPageTest {
     public void respondsWithNotFoundForInvalidMethod() {
         HTTPResponse response = notFoundPage.respondTo(new HTTPRequest(INVALID.method, "/"));
 
-        assertEquals(NOT_FOUND.statusLine, response.getStatusLine());
+        assertEquals(NOT_FOUND.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithNotFoundForNotExistingPath() {
         HTTPResponse response = notFoundPage.respondTo(new HTTPRequest(GET.method, "/not-existing"));
 
-        assertEquals(NOT_FOUND.statusLine, response.getStatusLine());
+        assertEquals(NOT_FOUND.message, response.getStatusLine());
     }
 }

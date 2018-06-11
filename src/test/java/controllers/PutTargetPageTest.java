@@ -16,6 +16,6 @@ public class PutTargetPageTest {
 
         HTTPResponse response = putTargetPage.put(new HTTPRequest(PUT.method, "/"));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 }

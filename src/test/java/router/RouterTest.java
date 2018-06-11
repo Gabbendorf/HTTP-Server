@@ -26,21 +26,21 @@ public class RouterTest {
     public void routesRequestAndProvidesResponse() {
         HTTPResponse response = router.route(newRequest(GET, "/"));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void responseIsNotAllowedIfInvalidMethod() {
         HTTPResponse response = router.route((newRequest(INVALID, "/")));
 
-        assertEquals(NOT_ALLOWED.statusLine, response.getStatusLine());
+        assertEquals(NOT_ALLOWED.message, response.getStatusLine());
     }
 
     @Test
     public void responseIsNotFoundIfNotExistingPath() {
         HTTPResponse response = router.route(newRequest(GET, "/not-existing"));
 
-        assertEquals(NOT_FOUND.statusLine, response.getStatusLine());
+        assertEquals(NOT_FOUND.message, response.getStatusLine());
     }
 
     private HTTPRequest newRequest(HTTPMethod method, String path) {

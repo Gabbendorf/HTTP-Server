@@ -16,6 +16,6 @@ public class FormPageTest {
 
         HTTPResponse response = formPage.post(new HTTPRequest(POST.method, "/"));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 }

@@ -29,7 +29,7 @@ public class ControllerTest {
     }
 
     private boolean isNotAllowed(HTTPResponse response) {
-        return response.getStatusLine().equals(NOT_ALLOWED.statusLine);
+        return response.getStatusLine().equals(NOT_ALLOWED.message);
     }
 
     private HTTPRequest newRequest(HTTPMethod method) {

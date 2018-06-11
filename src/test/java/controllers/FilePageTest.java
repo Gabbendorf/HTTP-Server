@@ -16,6 +16,6 @@ public class FilePageTest {
 
         HTTPResponse response = filePage.get(new HTTPRequest(GET.method, "/file1"));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 }

@@ -16,7 +16,7 @@ public class MethodOptionsPageTest {
 
         HTTPResponse response = methodOptionsPage.options(new HTTPRequest(OPTIONS.method, "/"));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
         assertEquals("Allow: GET,HEAD,POST,OPTIONS,PUT", response.getHeaders());
     }
 }

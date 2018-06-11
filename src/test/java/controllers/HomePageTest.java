@@ -22,14 +22,14 @@ public class HomePageTest {
     public void respondsWithOkToGetRequest() {
         HTTPResponse response = homePage.get(newRequest(GET));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkToHeadRequest() {
         HTTPResponse response = homePage.head(newRequest(HEAD));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     private HTTPRequest newRequest(HTTPMethod method) {

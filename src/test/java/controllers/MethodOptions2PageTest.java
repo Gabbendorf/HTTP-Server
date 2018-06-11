@@ -24,7 +24,7 @@ public class MethodOptions2PageTest {
     public void respondsWithOkAndAllowHeaderToOptionsRequest() {
         HTTPResponse response = methodOptions2page.options(newRequest(OPTIONS));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
         assertEquals("Allow: GET,HEAD,OPTIONS", response.getHeaders());
     }
 
@@ -32,14 +32,14 @@ public class MethodOptions2PageTest {
     public void respondsWithOkToGetRequest() {
         HTTPResponse response = methodOptions2page.get(newRequest(GET));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkToHeadRequest() {
         HTTPResponse response = methodOptions2page.get(newRequest(HEAD));
 
-        assertEquals(OK.statusLine, response.getStatusLine());
+        assertEquals(OK.message, response.getStatusLine());
     }
 
     private HTTPRequest newRequest(HTTPMethod method) {

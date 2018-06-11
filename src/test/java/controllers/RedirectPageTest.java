@@ -16,7 +16,7 @@ public class RedirectPageTest {
 
         HTTPResponse response = redirectPage.get(new HTTPRequest(GET.method, "/"));
 
-        assertEquals(FOUND.statusLine, response.getStatusLine());
+        assertEquals(FOUND.message, response.getStatusLine());
         assertEquals("Location: /", response.getHeaders());
     }
 }
