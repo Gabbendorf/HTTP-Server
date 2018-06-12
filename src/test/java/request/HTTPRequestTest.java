@@ -17,7 +17,7 @@ public class HTTPRequestTest {
     public void setUpHTTPRequest() {
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("Localhost", "/");
-        httpRequest = new HTTPRequest(GET.method, "/", headers);
+        httpRequest = new HTTPRequest(GET.method, "/", headers, "body");
     }
 
     @Test
@@ -46,5 +46,12 @@ public class HTTPRequestTest {
         Map<String, String> headers = httpRequest.getHeaders();
 
         assertTrue(headers.containsKey("Localhost"));
+    }
+
+    @Test
+    public void getsBody() {
+        String body = httpRequest.getBody();
+
+        assertEquals("body", body);
     }
 }

@@ -8,19 +8,21 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class RequestReaderTest {
 
     @Test
-    public void readsRequestUntilEndOfHeaders() {
+    public void readsRequest() {
         String rawRequest = "GET / HTTP/1.1\nheader: something\nheader2: other\n\nciao";
         RequestReader requestReader = new RequestReader(inputStream(rawRequest));
 
         HTTPRequest request = requestReader.readRequest();
 
         assertEquals("GET / HTTP/1.1", request.getRequestLine());
-        assertFalse(request.getHeaders().containsKey("ciao"));
+        assertTrue( request.getHeaders().containsKey("header"));
+        assertTrue( request.getHeaders().containsKey("header2"));
+        assertEquals("ciao", request.getBody());
     }
 
     @Test(expected = InputStreamException.class)

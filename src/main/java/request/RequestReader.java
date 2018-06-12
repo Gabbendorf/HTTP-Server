@@ -14,20 +14,26 @@ public class RequestReader {
     }
 
     public HTTPRequest readRequest() {
-        List<String> request = new ArrayList<>();
+        List<String> requestToHeaders = new ArrayList<>();
+        String body = "";
         String line;
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                if (isEndOfHeaders(line)) {
-                    break;
-                }
-                request.add(line);
+        while ((line = readLine()) != null) {
+            if (isEndOfHeaders(line)) {
+                body += readLine();
+                break;
             }
+            requestToHeaders.add(line);
+        }
+        RequestParser parser = new RequestParser(requestToHeaders);
+        return new HTTPRequest(parser.method(), parser.path(), parser.headers(), body);
+    }
+
+    private String readLine() {
+        try {
+            return bufferedReader.readLine();
         } catch (IOException e) {
             throw new InputStreamException(e);
         }
-        RequestParser parser = new RequestParser(request);
-        return new HTTPRequest(parser.method(), parser.path(), parser.headers());
     }
 
     private boolean isEndOfHeaders(String line) {

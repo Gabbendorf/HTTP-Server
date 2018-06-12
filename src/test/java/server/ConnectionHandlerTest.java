@@ -67,10 +67,7 @@ public class ConnectionHandlerTest {
         @Override
         public HTTPRequest readRequest() {
             hasRead = true;
-            Map<String, String> headers = new HashMap<String, String>() {{
-                put("", "");
-            }};
-            return new HTTPRequest("", "", headers);
+            return new HTTPRequest("", "");
         }
     }
 
