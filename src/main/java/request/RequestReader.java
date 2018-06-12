@@ -8,13 +8,16 @@ import java.util.*;
 public class RequestReader {
 
     private final BufferedReader bufferedReader;
+    private final RequestParser parser;
 
     public RequestReader(InputStream inputStream) {
         this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        this.parser = new RequestParser();
     }
 
     public HTTPRequest readRequest() {
-        List<String> requestToHeaders = new ArrayList<>();
+        String statusLine = readLine();
+        List<String> headers = new ArrayList<>();
         String body = "";
         String line;
         while ((line = readLine()) != null) {
@@ -22,10 +25,12 @@ public class RequestReader {
                 body += readLine();
                 break;
             }
-            requestToHeaders.add(line);
+            headers.add(line);
         }
-        RequestParser parser = new RequestParser(requestToHeaders);
-        return new HTTPRequest(parser.method(), parser.path(), parser.headers(), body);
+        return new HTTPRequest(parser.method(statusLine),
+                               parser.path(statusLine),
+                               parser.headers(headers),
+                               body);
     }
 
     private String readLine() {

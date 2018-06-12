@@ -13,30 +13,33 @@ import static org.junit.Assert.assertTrue;
 public class RequestParserTest {
 
     private static RequestParser parser;
+    private String requestLine;
+    private List<String> headers;
 
     @Before
     public void setUpParser() {
-        List<String> request = Arrays.asList("GET / HTTP/1.1", "Host: localhost", "Cookie: type=chocolate");
-        parser = new RequestParser(request);
+        headers = Arrays.asList("Host: localhost", "Cookie: type=chocolate");
+        requestLine = "GET / HTTP/1.1";
+        parser = new RequestParser();
     }
 
     @Test
     public void parsesRequestMethod() {
-        String method = parser.method();
+        String method = parser.method(requestLine);
 
         assertEquals("GET", method);
     }
 
     @Test
     public void parsesRequestPath() {
-        String path = parser.path();
+        String path = parser.path(requestLine);
 
         assertEquals("/", path);
     }
 
     @Test
     public void parsesHeaders() {
-        Map<String, String> headers = parser.headers();
+        Map<String, String> headers = parser.headers(this.headers);
 
         assertTrue(headers.containsKey("Host"));
         assertTrue(headers.containsKey("Cookie"));
