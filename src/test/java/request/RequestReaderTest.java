@@ -13,15 +13,28 @@ import static org.junit.Assert.assertTrue;
 public class RequestReaderTest {
 
     @Test
-    public void readsRequest() {
-        String rawRequest = "GET / HTTP/1.1\nheader: something\nheader2: other\n\nciao";
+    public void readsRequestWithoutBody() {
+        String rawRequest = "GET / HTTP/1.1\nheader: something\nheader2: other\n\nhello";
         RequestReader requestReader = new RequestReader(inputStream(rawRequest));
 
         HTTPRequest request = requestReader.readRequest();
 
         assertEquals("GET / HTTP/1.1", request.getRequestLine());
-        assertTrue( request.getHeaders().containsKey("header"));
-        assertTrue( request.getHeaders().containsKey("header2"));
+        assertTrue(request.getHeaders().containsKey("header"));
+        assertTrue(request.getHeaders().containsKey("header2"));
+        assertEquals("", request.getBody());
+    }
+
+    @Test
+    public void readsRequestWithBody() {
+        String rawRequest = "GET / HTTP/1.1\nheader: something\nContent-Length: 4\n\nciao";
+        RequestReader requestReader = new RequestReader(inputStream(rawRequest));
+
+        HTTPRequest request = requestReader.readRequest();
+
+        assertEquals("GET / HTTP/1.1", request.getRequestLine());
+        assertTrue(request.getHeaders().containsKey("header"));
+        assertTrue(request.getHeaders().containsKey("Content-Length"));
         assertEquals("ciao", request.getBody());
     }
 
