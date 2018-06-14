@@ -10,6 +10,7 @@ public enum HTTPMethod {
     OPTIONS("OPTIONS"),
     POST("POST"),
     PUT("PUT"),
+    PATCH("PATCH"),
     INVALID("INVALID");
 
     public final String method;

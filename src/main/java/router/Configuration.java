@@ -1,6 +1,9 @@
 package router;
 
 import controllers.*;
+import controllers.FormPage;
+import controllers.fileSystem.FilePage;
+import controllers.fileSystem.FileSystem;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -17,10 +20,11 @@ public class Configuration {
         controllers.put("/method_options2", new MethodOptions2Page());
         controllers.put("/form", new FormPage());
         controllers.put("/put-target", new PutTargetPage());
-        controllers.put("/file1", new FilePage());
-        controllers.put("/text-file.txt", new FilePage());
+        controllers.put("/file1", new FilePage(new FileSystem()));
+        controllers.put("/text-file.txt", new FilePage(new FileSystem()));
         controllers.put("/coffee", new TeaPage());
         controllers.put("/tea", new TeaPage());
+        controllers.put("/patch-content.txt", new FilePage(new FileSystem()));
         return controllers;
     }
 }
