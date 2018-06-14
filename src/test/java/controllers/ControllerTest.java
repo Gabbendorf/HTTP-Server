@@ -25,6 +25,7 @@ public class ControllerTest {
         assertTrue(isNotAllowed(controller.respondTo(newRequest(HEAD))));
         assertTrue(isNotAllowed(controller.respondTo(newRequest(POST))));
         assertTrue(isNotAllowed(controller.respondTo(newRequest(OPTIONS))));
+        assertTrue(isNotAllowed(controller.respondTo(newRequest(PATCH))));
         assertTrue(isNotAllowed(controller.respondTo(newRequest(INVALID))));
     }
 

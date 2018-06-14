@@ -21,6 +21,8 @@ public class Controller {
                 return post(request);
             case OPTIONS:
                 return options(request);
+            case PATCH:
+                return patch(request);
             case INVALID:
                 return incorrect(request);
             default:
@@ -48,7 +50,11 @@ public class Controller {
         return notAllowedResponse();
     }
 
-    protected HTTPResponse incorrect(HTTPRequest request) {
+    protected HTTPResponse patch(HTTPRequest request) {
+        return notAllowedResponse();
+    }
+
+    private HTTPResponse incorrect(HTTPRequest request) {
         return notAllowedResponse();
     }
 

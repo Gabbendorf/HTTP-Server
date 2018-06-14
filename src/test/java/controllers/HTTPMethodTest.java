@@ -43,6 +43,13 @@ public class HTTPMethodTest {
     }
 
     @Test
+    public void createsPatch() {
+        HTTPMethod method = HTTPMethod.create("PATCH");
+
+        assertEquals(PATCH, method);
+    }
+
+    @Test
     public void createsInvalid() {
         HTTPMethod method = HTTPMethod.create("FHIWVIW");
 
