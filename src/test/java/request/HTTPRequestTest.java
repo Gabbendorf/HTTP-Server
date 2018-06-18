@@ -17,7 +17,7 @@ public class HTTPRequestTest {
     public void setUpHTTPRequest() {
         Map<String, String> headers = new LinkedHashMap<>();
         headers.put("Localhost", "/");
-        httpRequest = new HTTPRequest(GET.method, "/", headers, "body");
+        httpRequest = new HTTPRequest(GET.method, "/?name=gabi", headers, "body");
     }
 
     @Test
@@ -28,10 +28,17 @@ public class HTTPRequestTest {
     }
 
     @Test
-    public void getsRequestPath() {
+    public void getsRequestPathWithoutQueryString() {
         String path = httpRequest.getPath();
 
         assertEquals("/", path);
+    }
+
+    @Test
+    public void getsRequestQueryString() {
+        String queryString = httpRequest.getQueryString();
+
+        assertEquals("name=gabi", queryString);
     }
 
     @Test

@@ -26,7 +26,14 @@ public class HTTPRequest {
     }
 
     public String getPath() {
-        return this.path;
+        if (containsQueryString(path)) {
+            return path.split("\\?")[0];
+        }
+        return path;
+    }
+
+    public String getQueryString() {
+        return path.split("\\?")[1];
     }
 
     public String getRequestLine() {
@@ -41,5 +48,9 @@ public class HTTPRequest {
 
     public String getBody() {
         return body;
+    }
+
+    private boolean containsQueryString(String path) {
+        return path.contains("?");
     }
 }

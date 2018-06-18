@@ -14,7 +14,7 @@ public class Configuration {
         Map<String, Controller> controllers = new LinkedHashMap<>();
         controllers.put("/", new HomePage());
         controllers.put("/redirect", new RedirectPage());
-        controllers.put("/cookie?type=chocolate", new CookiePage());
+        controllers.put("/cookie", new CookiePage());
         controllers.put("/eat_cookie", new CookiePage());
         controllers.put("/method_options", new MethodOptionsPage());
         controllers.put("/method_options2", new MethodOptions2Page());
