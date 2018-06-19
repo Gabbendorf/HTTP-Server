@@ -1,6 +1,6 @@
 package controllers.fileSystem;
 
-import exceptions.FileException;
+import exceptions.NotExistingFileException;
 import exceptions.InputStreamException;
 
 import java.io.FileNotFoundException;
@@ -31,7 +31,7 @@ public class FileSystem {
                 writer.flush();
                 writer.close();
             } catch (FileNotFoundException e) {
-                throw new FileException(e);
+                throw new NotExistingFileException(e);
             }
     }
 
