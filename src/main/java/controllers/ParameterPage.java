@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.NotSupportedEncodingException;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -51,7 +52,7 @@ public class ParameterPage extends Controller {
         try {
             decodedParameters.put(splitKeyAndValue[0], URLDecoder.decode(splitKeyAndValue[1], "UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            throw new NotSupportedEncodingException(e);
         }
     }
 }
