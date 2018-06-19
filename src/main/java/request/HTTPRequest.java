@@ -16,6 +16,12 @@ public class HTTPRequest {
         this.body = body;
     }
 
+    public HTTPRequest(String method, String path, Map<String, String> headers) {
+        this.method = method;
+        this.path = path;
+        this.headers = headers;
+    }
+
     public HTTPRequest(String method, String path) {
         this.method = method;
         this.path = path;
