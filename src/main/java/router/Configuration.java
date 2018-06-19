@@ -16,6 +16,7 @@ public class Configuration {
         controllers.put("/redirect", new RedirectPage());
         controllers.put("/cookie", new CookiePage());
         controllers.put("/parameters", new ParameterPage());
+        controllers.put("/logs", new LogsPage());
         controllers.put("/eat_cookie", new CookiePage());
         controllers.put("/method_options", new MethodOptionsPage());
         controllers.put("/method_options2", new MethodOptions2Page());
