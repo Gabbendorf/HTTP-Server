@@ -1,6 +1,6 @@
 package controllers.fileSystem;
 
-import exceptions.FileException;
+import exceptions.NotExistingFileException;
 import exceptions.InputStreamException;
 import org.junit.Test;
 
@@ -9,11 +9,11 @@ import java.io.IOException;
 
 public class FileSystemTest {
 
-    @Test(expected = FileException.class)
+    @Test(expected = NotExistingFileException.class)
     public void throwsFileException() {
-        FileSystemWithFileException fileSystemWithFileException = new FileSystemWithFileException();
+        FileSystemWithNotExistingFileException fileSystemWithNotExistingFileException = new FileSystemWithNotExistingFileException();
 
-        fileSystemWithFileException.writeTo("hi", "/here");
+        fileSystemWithNotExistingFileException.writeTo("hi", "/here");
     }
 
     @Test(expected = InputStreamException.class)
@@ -23,11 +23,11 @@ public class FileSystemTest {
         fileSystemWithInputStreamException.readContentFor("/here");
     }
 
-    private class FileSystemWithFileException extends FileSystem {
+    private class FileSystemWithNotExistingFileException extends FileSystem {
 
         @Override
         public void writeTo(String content, String path) {
-            throw new FileException(new FileNotFoundException());
+            throw new NotExistingFileException(new FileNotFoundException());
         }
 
     }
