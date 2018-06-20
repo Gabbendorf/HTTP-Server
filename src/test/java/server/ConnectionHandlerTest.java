@@ -52,7 +52,14 @@ public class ConnectionHandlerTest {
 
     @Test(expected = SocketClosureException.class)
     public void throwsSocketClosureException() {
-        ConnectionHandlerWithException connectionHandler = new ConnectionHandlerWithException(requestReader, responseWriter, socketStub, logger);
+        ConnectionHandlerWithSocketClosureException connectionHandler = new ConnectionHandlerWithSocketClosureException(requestReader, responseWriter, socketStub, logger);
+
+        connectionHandler.run();
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void throwsRunTimeException() {
+        ConnectionHandlerWithRunTimeException connectionHandler = new ConnectionHandlerWithRunTimeException(requestReader, responseWriter, socketStub, logger);
 
         connectionHandler.run();
     }
@@ -86,15 +93,27 @@ public class ConnectionHandlerTest {
         }
     }
 
-    class ConnectionHandlerWithException extends ConnectionHandler {
+    class ConnectionHandlerWithSocketClosureException extends ConnectionHandler {
 
-        public ConnectionHandlerWithException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
+        public ConnectionHandlerWithSocketClosureException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
             super(requestReader, responseWriter, socket, logger);
         }
 
         @Override
         public void run() {
             throw new SocketClosureException(new IOException());
+        }
+    }
+
+    class ConnectionHandlerWithRunTimeException extends ConnectionHandler {
+
+        public ConnectionHandlerWithRunTimeException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
+            super(requestReader, responseWriter, socket, logger);
+        }
+
+        @Override
+        public void run() {
+            throw new RuntimeException();
         }
     }
 }

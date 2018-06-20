@@ -11,6 +11,8 @@ import router.Router;
 import java.io.Closeable;
 import java.io.IOException;
 
+import static response.StatusLine.INTERNAL_SERVER_ERROR;
+
 public class ConnectionHandler implements Runnable {
 
     private final RequestReader requestReader;
@@ -27,13 +29,31 @@ public class ConnectionHandler implements Runnable {
 
     @Override
     public void run() {
-        HTTPRequest request = requestReader.readRequest();
-        HTTPResponse response = router.route(request);
-        responseWriter.write(response.getResponse());
+        try {
+            HTTPRequest request = requestReader.readRequest();
+            HTTPResponse response = router.route(request);
+            responseWriter.write(response.getResponse());
+            closeSocket();
+        } catch (Exception e) {
+            try {
+                internalServerErrorResponse(e);
+            } catch (IOException e1) {
+                throw new RuntimeException(e1.getMessage(), e1);
+            }
+        }
+    }
+
+    private void closeSocket() {
         try {
             socket.close();
         } catch (IOException e) {
             throw new SocketClosureException(e);
         }
+    }
+
+    private void internalServerErrorResponse(Exception e) throws IOException {
+        HTTPResponse response = new HTTPResponse(INTERNAL_SERVER_ERROR, e.getMessage());
+        responseWriter.write(response.getResponse());
+        closeSocket();
     }
 }

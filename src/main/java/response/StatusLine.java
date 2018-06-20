@@ -9,7 +9,8 @@ public enum StatusLine {
     TEAPOT("418 I'm a teapot"),
     NO_CONTENT("204 No Content"),
     PRECONDITION_FAILED("412 precondition failed"),
-    UNAUTHORIZED("401 Unauthorized Request");
+    UNAUTHORIZED("401 Unauthorized Request"),
+    INTERNAL_SERVER_ERROR("500 Internal Server Error");
 
     StatusLine(String statusLine) {
         message = statusLine;
