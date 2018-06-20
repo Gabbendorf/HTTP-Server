@@ -9,7 +9,7 @@ import router.Logger;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static controllers.HTTPMethod.GET;
+import static request.HTTPMethod.GET;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 import static response.StatusLine.UNAUTHORIZED;

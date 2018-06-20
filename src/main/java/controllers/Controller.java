@@ -1,10 +1,11 @@
 package controllers;
 
+import request.HTTPMethod;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
 import static response.StatusLine.*;
-import static controllers.HTTPMethod.create;
+import static request.HTTPMethod.create;
 
 public class Controller {
 

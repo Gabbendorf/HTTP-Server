@@ -1,13 +1,13 @@
 package router;
 
-import controllers.HTTPMethod;
+import request.HTTPMethod;
 import org.junit.Before;
 import org.junit.Test;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.GET;
-import static controllers.HTTPMethod.INVALID;
+import static request.HTTPMethod.GET;
+import static request.HTTPMethod.INVALID;
 import static org.junit.Assert.assertEquals;
 import static response.StatusLine.NOT_ALLOWED;
 import static response.StatusLine.NOT_FOUND;

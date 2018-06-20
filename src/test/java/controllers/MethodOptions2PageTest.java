@@ -2,12 +2,13 @@ package controllers;
 
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPMethod;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.GET;
-import static controllers.HTTPMethod.HEAD;
-import static controllers.HTTPMethod.OPTIONS;
+import static request.HTTPMethod.GET;
+import static request.HTTPMethod.HEAD;
+import static request.HTTPMethod.OPTIONS;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 

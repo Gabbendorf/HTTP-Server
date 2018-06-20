@@ -4,7 +4,7 @@ import org.junit.Test;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.PUT;
+import static request.HTTPMethod.PUT;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 

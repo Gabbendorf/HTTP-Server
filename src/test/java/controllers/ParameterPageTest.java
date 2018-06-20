@@ -7,7 +7,7 @@ import response.HTTPResponse;
 
 import java.io.UnsupportedEncodingException;
 
-import static controllers.HTTPMethod.GET;
+import static request.HTTPMethod.GET;
 import static org.junit.Assert.*;
 
 public class ParameterPageTest {

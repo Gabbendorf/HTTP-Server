@@ -5,7 +5,7 @@ import org.junit.Test;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.GET;
+import static request.HTTPMethod.GET;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 import static response.StatusLine.TEAPOT;

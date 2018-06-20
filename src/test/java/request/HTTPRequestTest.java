@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static controllers.HTTPMethod.GET;
+import static request.HTTPMethod.GET;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
