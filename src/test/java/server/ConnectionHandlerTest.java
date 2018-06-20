@@ -6,10 +6,9 @@ import org.junit.Test;
 import request.HTTPRequest;
 import request.RequestReader;
 import response.ResponseWriter;
+import router.Logger;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
@@ -19,13 +18,15 @@ public class ConnectionHandlerTest {
     private RequestReaderSpy requestReader;
     private ResponseWriterSpy responseWriter;
     private SocketStub socketStub;
+    private Logger logger;
 
     @Before
     public void createInstances() {
         requestReader = new RequestReaderSpy(new ByteArrayInputStream("".getBytes()));
         responseWriter = new ResponseWriterSpy(new ByteArrayOutputStream());
         socketStub = new SocketStub();
-        connectionHandler = new ConnectionHandler(requestReader, responseWriter, socketStub);
+        logger = new Logger();
+        connectionHandler = new ConnectionHandler(requestReader, responseWriter, socketStub, logger);
     }
 
     @Test
@@ -51,7 +52,7 @@ public class ConnectionHandlerTest {
 
     @Test(expected = SocketClosureException.class)
     public void throwsSocketClosureException() {
-        ConnectionHandlerWithException connectionHandler = new ConnectionHandlerWithException(requestReader, responseWriter, socketStub);
+        ConnectionHandlerWithException connectionHandler = new ConnectionHandlerWithException(requestReader, responseWriter, socketStub, logger);
 
         connectionHandler.run();
     }
@@ -87,8 +88,8 @@ public class ConnectionHandlerTest {
 
     class ConnectionHandlerWithException extends ConnectionHandler {
 
-        public ConnectionHandlerWithException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket) {
-            super(requestReader, responseWriter, socket);
+        public ConnectionHandlerWithException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
+            super(requestReader, responseWriter, socket, logger);
         }
 
         @Override

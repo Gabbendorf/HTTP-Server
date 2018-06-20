@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import request.HTTPRequest;
 import response.HTTPResponse;
+import router.Logger;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class LogsPageTest {
 
     @Before
     public void createInstance() {
-        logsPage = new LogsPage();
+        logsPage = new LogsPage(new Logger());
     }
 
     @Test

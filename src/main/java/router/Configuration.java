@@ -10,13 +10,13 @@ import java.util.Map;
 
 public class Configuration {
 
-    public Map<String, Controller> setControllers() {
+    public Map<String, Controller> setControllers(Logger logger) {
         Map<String, Controller> controllers = new LinkedHashMap<>();
         controllers.put("/", new HomePage());
         controllers.put("/redirect", new RedirectPage());
         controllers.put("/cookie", new CookiePage());
         controllers.put("/parameters", new ParameterPage());
-        controllers.put("/logs", new LogsPage());
+        controllers.put("/logs", new LogsPage(logger));
         controllers.put("/eat_cookie", new CookiePage());
         controllers.put("/method_options", new MethodOptionsPage());
         controllers.put("/method_options2", new MethodOptions2Page());

@@ -2,6 +2,7 @@ package controllers;
 
 import request.HTTPRequest;
 import response.HTTPResponse;
+import router.Logger;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -12,11 +13,16 @@ import static response.StatusLine.UNAUTHORIZED;
 public class LogsPage extends Controller {
 
     private final static String AUTHORIZATION = "Authorization";
+    private Logger logger;
+
+    public LogsPage(Logger logger) {
+        this.logger = logger;
+    }
 
     @Override
     public HTTPResponse get(HTTPRequest request) {
         if (isAuthorized(request)) {
-            return new HTTPResponse(OK);
+            return new HTTPResponse(OK, logger.getLogs());
         }
         return new HTTPResponse(UNAUTHORIZED, "WWW-Authenticate: Basic realm=\"AccessToTheLogs\"", "Not Authorized");
     }

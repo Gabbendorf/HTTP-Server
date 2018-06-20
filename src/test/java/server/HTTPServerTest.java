@@ -3,6 +3,7 @@ package server;
 import exceptions.ConnectionException;
 import org.junit.Before;
 import org.junit.Test;
+import router.Logger;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -13,16 +14,18 @@ public class HTTPServerTest {
 
     private ExecutorSpy executorSpy;
     private ServerSocketStub serverSocketStub;
+    private Logger logger;
 
     @Before
     public void createInstances() throws IOException {
         executorSpy = new ExecutorSpy();
         serverSocketStub = new ServerSocketStub();
+        logger = new Logger();
     }
 
     @Test
     public void executesMultipleConnections() {
-        HTTPServer server = new HTTPServer(serverSocketStub, executorSpy);
+        HTTPServer server = new HTTPServer(serverSocketStub, executorSpy, logger);
 
         server.start(new ServerStatusStub());
 
@@ -31,7 +34,7 @@ public class HTTPServerTest {
 
     @Test(expected = ConnectionException.class)
     public void throwsConnectionException() {
-        HTTPServerWithException httpServerWithException = new HTTPServerWithException(serverSocketStub, executorSpy);
+        HTTPServerWithException httpServerWithException = new HTTPServerWithException(serverSocketStub, executorSpy, logger);
 
         httpServerWithException.start(new ServerStatusStub());
     }
@@ -66,8 +69,8 @@ public class HTTPServerTest {
 
     class HTTPServerWithException extends HTTPServer {
 
-        public HTTPServerWithException(ServerSocket serverSocket, ConnectionsExecutor executor) {
-            super(serverSocket, executor);
+        public HTTPServerWithException(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger) {
+            super(serverSocket, executor, logger);
         }
 
         @Override

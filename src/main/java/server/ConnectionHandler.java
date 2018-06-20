@@ -5,6 +5,7 @@ import request.HTTPRequest;
 import request.RequestReader;
 import response.HTTPResponse;
 import response.ResponseWriter;
+import router.Logger;
 import router.Router;
 
 import java.io.Closeable;
@@ -17,11 +18,11 @@ public class ConnectionHandler implements Runnable {
     private final Closeable socket;
     private final Router router;
 
-    public ConnectionHandler(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket) {
+    public ConnectionHandler(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
         this.requestReader = requestReader;
         this.responseWriter = responseWriter;
         this.socket = socket;
-        this.router = new Router();
+        this.router = new Router(logger);
     }
 
     @Override

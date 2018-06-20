@@ -1,3 +1,4 @@
+import router.Logger;
 import server.ThreadsExecutor;
 import server.HTTPServer;
 import server.ServerStatus;
@@ -14,7 +15,7 @@ public class ServerRunner {
 
     public static void main(String[] args) {
         try {
-            HTTPServer server = new HTTPServer(new ServerSocket(port), new ThreadsExecutor(threadPool));
+            HTTPServer server = new HTTPServer(new ServerSocket(port), new ThreadsExecutor(threadPool), new Logger());
 
             server.start(new ServerStatus());
         } catch (IOException e) {

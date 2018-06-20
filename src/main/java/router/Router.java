@@ -9,12 +9,15 @@ import java.util.Map;
 public class Router {
 
     private final Map<String, Controller> controllers;
+    private final Logger logger;
 
-    public Router() {
-        this.controllers = new Configuration().setControllers();
+    public Router(Logger logger) {
+        this.controllers = new Configuration().setControllers(logger);
+        this.logger = logger;
     }
 
     public HTTPResponse route(HTTPRequest request) {
+        logger.log(request.getRequestLine());
         Controller controller = getController(request.getPath());
         return controller.respondTo(request);
     }

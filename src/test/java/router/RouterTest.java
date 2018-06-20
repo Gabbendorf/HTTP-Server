@@ -16,10 +16,19 @@ import static response.StatusLine.OK;
 public class RouterTest {
 
     private Router router;
+    private Logger logger;
 
     @Before
-    public void createInstance() {
-        router = new Router();
+    public void createInstances() {
+        logger = new Logger();
+        router = new Router(logger);
+    }
+
+    @Test
+    public void registersLogs() {
+        router.route(newRequest(GET,  "/"));
+
+        assertEquals("GET / HTTP/1.1\n", logger.getLogs());
     }
 
     @Test
