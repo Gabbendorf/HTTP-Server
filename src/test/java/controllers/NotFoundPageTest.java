@@ -5,14 +5,17 @@ import org.junit.Test;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.GET;
-import static controllers.HTTPMethod.INVALID;
+import java.util.ArrayList;
+import java.util.List;
+
+import static controllers.HTTPMethod.*;
 import static org.junit.Assert.*;
 import static response.StatusLine.NOT_FOUND;
 
 public class NotFoundPageTest {
 
     private NotFoundPage notFoundPage;
+    private List<String> responses = new ArrayList<>();
 
     @Before
     public void createInstance() {
@@ -20,16 +23,31 @@ public class NotFoundPageTest {
     }
 
     @Test
-    public void respondsWithNotFoundForInvalidMethod() {
-        HTTPResponse response = notFoundPage.respondTo(new HTTPRequest(INVALID.method, "/"));
+    public void respondsWithNotFoundForAllRequests() {
+        addResponse(notFoundPage.get(newRequest(GET, "/")));
+        addResponse(notFoundPage.post(newRequest(POST, "/")));
+        addResponse(notFoundPage.put(newRequest(PUT, "/")));
+        addResponse(notFoundPage.head(newRequest(HEAD, "/")));
+        addResponse(notFoundPage.patch(newRequest(PATCH, "/")));
+        addResponse(notFoundPage.options(newRequest(OPTIONS, "/")));
 
-        assertEquals(NOT_FOUND.message, response.getStatusLine());
+        assertTrue(areAllNotFoundResponses());
     }
 
-    @Test
-    public void respondsWithNotFoundForNotExistingPath() {
-        HTTPResponse response = notFoundPage.respondTo(new HTTPRequest(GET.method, "/not-existing"));
+    private HTTPRequest newRequest(HTTPMethod method, String path) {
+        return new HTTPRequest(method.method, path);
+    }
 
-        assertEquals(NOT_FOUND.message, response.getStatusLine());
+    private void addResponse(HTTPResponse response) {
+        responses.add(response.getStatusLine());
+    }
+
+    private boolean areAllNotFoundResponses() {
+        for (String response : responses) {
+            if (response.equals(NOT_FOUND.message)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
