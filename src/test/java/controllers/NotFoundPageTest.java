@@ -2,13 +2,14 @@ package controllers;
 
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPMethod;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static controllers.HTTPMethod.*;
+import static request.HTTPMethod.*;
 import static org.junit.Assert.*;
 import static response.StatusLine.NOT_FOUND;
 

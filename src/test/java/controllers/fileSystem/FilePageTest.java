@@ -9,8 +9,8 @@ import response.HTTPResponse;
 import java.util.Arrays;
 import java.util.Map;
 
-import static controllers.HTTPMethod.GET;
-import static controllers.HTTPMethod.PATCH;
+import static request.HTTPMethod.GET;
+import static request.HTTPMethod.PATCH;
 import static org.junit.Assert.*;
 import static response.StatusLine.NO_CONTENT;
 import static response.StatusLine.OK;
@@ -88,17 +88,3 @@ public class FilePageTest {
     }
 }
 
-    class FileSystemStub extends FileSystem {
-
-        private String content = "ciao";
-
-        @Override
-            public String readContentFor(String path) {
-            return content;
-        }
-
-        @Override
-        public void writeTo(String content, String path) {
-            this.content = content;
-        }
-    }

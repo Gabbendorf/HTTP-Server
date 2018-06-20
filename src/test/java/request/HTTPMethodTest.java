@@ -1,9 +1,10 @@
-package controllers;
+package request;
 
 import org.junit.Test;
+import request.HTTPMethod;
 
 import static org.junit.Assert.*;
-import static controllers.HTTPMethod.*;
+import static request.HTTPMethod.*;
 
 public class HTTPMethodTest {
 
