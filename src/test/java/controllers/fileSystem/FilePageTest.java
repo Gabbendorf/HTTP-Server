@@ -25,7 +25,6 @@ public class FilePageTest {
     public void createInstance() {
         fileSystem = new FileSystem();
         fileSystemStub = new FileSystemStub();
-        fileSystem.writeTo("default content", "/patch-content.txt");
     }
 
     @Test
