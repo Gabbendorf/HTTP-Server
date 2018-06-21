@@ -25,7 +25,7 @@ public class HTTPServerTest {
 
     @Test
     public void executesMultipleConnections() {
-        HTTPServer server = new HTTPServer(serverSocketStub, executorSpy, logger);
+        HTTPServer server = new HTTPServer(serverSocketStub, executorSpy, logger, "directory");
 
         server.start(new ServerStatusStub());
 
@@ -34,7 +34,7 @@ public class HTTPServerTest {
 
     @Test(expected = ConnectionException.class)
     public void throwsConnectionException() {
-        HTTPServerWithException httpServerWithException = new HTTPServerWithException(serverSocketStub, executorSpy, logger);
+        HTTPServerWithException httpServerWithException = new HTTPServerWithException(serverSocketStub, executorSpy, logger, "directory");
 
         httpServerWithException.start(new ServerStatusStub());
     }
@@ -69,8 +69,8 @@ public class HTTPServerTest {
 
     class HTTPServerWithException extends HTTPServer {
 
-        public HTTPServerWithException(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger) {
-            super(serverSocket, executor, logger);
+        public HTTPServerWithException(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger, String directory) {
+            super(serverSocket, executor, logger, directory);
         }
 
         @Override

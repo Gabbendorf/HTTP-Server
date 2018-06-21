@@ -11,8 +11,8 @@ public class Router {
     private final Map<String, Controller> controllers;
     private final Logger logger;
 
-    public Router(Logger logger) {
-        this.controllers = new Configuration().setControllers(logger);
+    public Router(Logger logger, String directory) {
+        this.controllers = new Configuration().setControllers(logger, directory);
         this.logger = logger;
     }
 

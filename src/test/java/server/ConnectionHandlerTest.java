@@ -26,7 +26,7 @@ public class ConnectionHandlerTest {
         responseWriter = new ResponseWriterSpy(new ByteArrayOutputStream());
         socketStub = new SocketStub();
         logger = new Logger();
-        connectionHandler = new ConnectionHandler(requestReader, responseWriter, socketStub, logger);
+        connectionHandler = new ConnectionHandler(requestReader, responseWriter, socketStub, logger, "");
     }
 
     @Test
@@ -52,14 +52,14 @@ public class ConnectionHandlerTest {
 
     @Test(expected = SocketClosureException.class)
     public void throwsSocketClosureException() {
-        ConnectionHandlerWithSocketClosureException connectionHandler = new ConnectionHandlerWithSocketClosureException(requestReader, responseWriter, socketStub, logger);
+        ConnectionHandlerWithSocketClosureException connectionHandler = new ConnectionHandlerWithSocketClosureException(requestReader, responseWriter, socketStub, logger, "");
 
         connectionHandler.run();
     }
 
     @Test(expected = RuntimeException.class)
     public void throwsRunTimeException() {
-        ConnectionHandlerWithRunTimeException connectionHandler = new ConnectionHandlerWithRunTimeException(requestReader, responseWriter, socketStub, logger);
+        ConnectionHandlerWithRunTimeException connectionHandler = new ConnectionHandlerWithRunTimeException(requestReader, responseWriter, socketStub, logger, "");
 
         connectionHandler.run();
     }
@@ -95,8 +95,8 @@ public class ConnectionHandlerTest {
 
     class ConnectionHandlerWithSocketClosureException extends ConnectionHandler {
 
-        public ConnectionHandlerWithSocketClosureException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
-            super(requestReader, responseWriter, socket, logger);
+        public ConnectionHandlerWithSocketClosureException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger, String directory) {
+            super(requestReader, responseWriter, socket, logger, directory);
         }
 
         @Override
@@ -107,8 +107,8 @@ public class ConnectionHandlerTest {
 
     class ConnectionHandlerWithRunTimeException extends ConnectionHandler {
 
-        public ConnectionHandlerWithRunTimeException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
-            super(requestReader, responseWriter, socket, logger);
+        public ConnectionHandlerWithRunTimeException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger, String directory) {
+            super(requestReader, responseWriter, socket, logger, directory);
         }
 
         @Override
