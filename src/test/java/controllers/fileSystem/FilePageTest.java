@@ -19,71 +19,68 @@ import static response.StatusLine.PRECONDITION_FAILED;
 public class FilePageTest {
 
     private FileSystem fileSystem;
-    private FileSystemStub fileSystemStub;
+    private FilePageStub filePageStub;
 
     @Before
     public void createInstance() {
-        fileSystem = new FileSystem("/Users/gabi/Desktop/MyApprenticeship/IPM/Java/HTTPServer/cob_spec/public");
-        fileSystemStub = new FileSystemStub("");
+        fileSystem = new FileSystem("src/test/java/root");
+        filePageStub = new FilePageStub(fileSystem);
+        fileSystem.writeTo("Hello", "/file.txt");
     }
 
     @Test
     public void respondsWithOkAndFileContentToGetRequest() {
         FilePage filePage = new FilePage(fileSystem);
 
-        HTTPResponse response = filePage.get(new HTTPRequest(GET.method, "/text-file.txt"));
+        HTTPResponse response = filePage.get(new HTTPRequest(GET.method, "/file.txt"));
 
         assertEquals(OK.message, response.getStatusLine());
-        assertEquals("file1 contents", response.getBody());
+        assertEquals("Hello", response.getBody());
     }
 
     @Test
     public void respondsWithNoContentForMatchingEtagInPatchRequest() {
-        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
         filePageStub.setEtag("12");
 
-        HTTPResponse response = filePageStub.patch(requestWithEtagAndBody("/","12", "hi"));
+        HTTPResponse response = filePageStub.patch(requestWithEtagAndBody("/file.txt","12", "hi"));
 
         assertEquals(NO_CONTENT.message, response.getStatusLine());
     }
 
     @Test
     public void writesBodyContentToFileForMatchingEtagInPatchRequest() {
-        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
         filePageStub.setEtag("12");
 
-        filePageStub.patch(requestWithEtagAndBody("/","12", "hi"));
+        filePageStub.patch(requestWithEtagAndBody("/file.txt","12", "hi"));
 
-        assertEquals("hi", fileSystemStub.readContentFor("/"));
+        assertEquals("hi", fileSystem.readContentFor("/file.txt"));
     }
 
     @Test
     public void respondsWithPreconditionFailedForNotMatchingEtagInPatchRequest() {
-        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
         filePageStub.setEtag("12");
 
-        HTTPResponse response = filePageStub.patch(requestWithEtagAndBody("/","10", "hi"));
+        HTTPResponse response = filePageStub.patch(requestWithEtagAndBody("/file.txt","10", "hi"));
 
         assertEquals(PRECONDITION_FAILED.message, response.getStatusLine());
     }
 
     @Test
     public void doesNotChangeFileContentIfNotMatchingEtagInPatchRequest() {
-        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
         filePageStub.setEtag("12");
 
-        filePageStub.patch(requestWithEtagAndBody("/","10", "hi"));
+        filePageStub.patch(requestWithEtagAndBody("/file.txt","10", "hi"));
 
-        assertEquals("ciao", fileSystemStub.readContentFor("/"));
+        assertEquals("Hello", fileSystem.readContentFor("/file.txt"));
     }
 
     private HTTPRequest requestWithEtagAndBody(String path, String etag, String body) {
         return new HTTPRequest(PATCH.method, path, headers("If-Match", etag), body);
     }
 
-    private Map<String, String> headers(String ifMatch, String etag) {
+    private Map<String, String> headers(String ifMatchHeader, String etag) {
         RequestParser parser = new RequestParser();
-        return parser.headers(Arrays.asList(String.format("%s: %s", ifMatch, etag)));
+        return parser.headers(Arrays.asList(String.format("%s: %s", ifMatchHeader, etag)));
     }
 }
 
