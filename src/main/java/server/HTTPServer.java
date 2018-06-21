@@ -28,8 +28,8 @@ public class HTTPServer {
             try {
                 Socket connectedSocket = serverSocket.accept();
                 RequestReader requestReader = new RequestReader(connectedSocket.getInputStream());
-                ResponseWriter responseWriter = new ResponseWriter(connectedSocket.getOutputStream());
-                executor.execute(new ConnectionHandler(requestReader, responseWriter, connectedSocket, logger, root));
+                ResponseWriter responseWriter = new ResponseWriter(connectedSocket.getOutputStream(), connectedSocket);
+                executor.execute(new ConnectionHandler(requestReader, responseWriter, logger, root));
             } catch (IOException e) {
                 throw new ConnectionException(e);
             }

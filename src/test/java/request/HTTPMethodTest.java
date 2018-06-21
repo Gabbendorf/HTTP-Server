@@ -1,7 +1,6 @@
 package request;
 
 import org.junit.Test;
-import request.HTTPMethod;
 
 import static org.junit.Assert.*;
 import static request.HTTPMethod.*;
