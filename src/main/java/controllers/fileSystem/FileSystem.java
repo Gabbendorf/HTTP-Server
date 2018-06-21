@@ -4,10 +4,7 @@ import exceptions.NotExistingFileException;
 import exceptions.InputStreamException;
 import exceptions.NotSupportedEncodingException;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -29,7 +26,7 @@ public class FileSystem {
     public void writeTo(String content, String path) {
         try {
             try {
-                writer = new PrintWriter(ABSOLUTE_PATH + fileName(path), "UTF-8");
+                writer = new PrintWriter(file(path), "UTF-8");
                 writer.println(content);
                 writer.flush();
             } catch (UnsupportedEncodingException e) {
@@ -42,6 +39,11 @@ public class FileSystem {
         }
     }
 
+    private File file(String path) {
+        File file = new File(ABSOLUTE_PATH + fileName(path));
+        file.getParentFile().mkdirs();
+        return file;
+    }
     private String fileName(String path) {
         return new StringBuilder(path).deleteCharAt(0).toString();
     }
