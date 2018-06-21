@@ -11,11 +11,15 @@ import java.util.concurrent.Executors;
 public class ServerRunner {
 
     private static ExecutorService threadPool = Executors.newFixedThreadPool(20);
-    private static int port = 5000;
 
     public static void main(String[] args) {
+        int port = Integer.parseInt(args[1]);
+        String directory = args[3];
         try {
-            HTTPServer server = new HTTPServer(new ServerSocket(port), new ThreadsExecutor(threadPool), new Logger());
+            HTTPServer server = new HTTPServer(new ServerSocket(port),
+                                               new ThreadsExecutor(threadPool),
+                                               new Logger(),
+                                               directory);
 
             server.start(new ServerStatus());
         } catch (IOException e) {
