@@ -40,40 +40,40 @@ public class FilePageTest {
 
     @Test
     public void respondsWithNoContentForMatchingEtagInPatchRequest() {
-        FilePageStub filePage = new FilePageStub(fileSystemStub);
-        filePage.setEtag("12");
+        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
+        filePageStub.setEtag("12");
 
-        HTTPResponse response = filePage.patch(requestWithEtagAndBody("/","12", "hi"));
+        HTTPResponse response = filePageStub.patch(requestWithEtagAndBody("/","12", "hi"));
 
         assertEquals(NO_CONTENT.message, response.getStatusLine());
     }
 
     @Test
     public void writesBodyContentToFileForMatchingEtagInPatchRequest() {
-        FilePageStub filePage = new FilePageStub(fileSystemStub);
-        filePage.setEtag("12");
+        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
+        filePageStub.setEtag("12");
 
-        filePage.patch(requestWithEtagAndBody("/","12", "hi"));
+        filePageStub.patch(requestWithEtagAndBody("/","12", "hi"));
 
         assertEquals("hi", fileSystemStub.readContentFor("/"));
     }
 
     @Test
     public void respondsWithPreconditionFailedForNotMatchingEtagInPatchRequest() {
-        FilePageStub filePage = new FilePageStub(fileSystemStub);
-        filePage.setEtag("12");
+        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
+        filePageStub.setEtag("12");
 
-        HTTPResponse response = filePage.patch(requestWithEtagAndBody("/","10", "hi"));
+        HTTPResponse response = filePageStub.patch(requestWithEtagAndBody("/","10", "hi"));
 
         assertEquals(PRECONDITION_FAILED.message, response.getStatusLine());
     }
 
     @Test
     public void doesNotChangeFileContentIfNotMatchingEtagInPatchRequest() {
-        FilePageStub filePage = new FilePageStub(fileSystemStub);
-        filePage.setEtag("12");
+        FilePageStub filePageStub = new FilePageStub(fileSystemStub);
+        filePageStub.setEtag("12");
 
-        filePage.patch(requestWithEtagAndBody("/","10", "hi"));
+        filePageStub.patch(requestWithEtagAndBody("/","10", "hi"));
 
         assertEquals("ciao", fileSystemStub.readContentFor("/"));
     }
