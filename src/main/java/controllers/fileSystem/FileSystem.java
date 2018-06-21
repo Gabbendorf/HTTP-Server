@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class FileSystem {
 
     private final static String ABSOLUTE_PATH = "/Users/gabi/Desktop/MyApprenticeship/IPM/Java/HTTPServer/cob_spec/public/";
-    private PrintWriter writer;
+    private PrintWriter writer = null;
 
     public String readContentFor(String path) {
         String content;
@@ -32,10 +32,16 @@ public class FileSystem {
             } catch (UnsupportedEncodingException e) {
                 throw new NotSupportedEncodingException(e);
             } finally {
-                writer.close();
+                tryCloseWriter();
             }
         } catch (FileNotFoundException e) {
             throw new NotExistingFileException(e);
+        }
+    }
+
+    private void tryCloseWriter() {
+        if (writer != null) {
+            writer.close();
         }
     }
 
