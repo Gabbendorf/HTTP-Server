@@ -23,8 +23,8 @@ public class FilePageTest {
 
     @Before
     public void createInstance() {
-        fileSystem = new FileSystem();
-        fileSystemStub = new FileSystemStub();
+        fileSystem = new FileSystem("/Users/gabi/Desktop/MyApprenticeship/IPM/Java/HTTPServer/cob_spec/public");
+        fileSystemStub = new FileSystemStub("");
     }
 
     @Test

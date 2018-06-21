@@ -13,12 +13,14 @@ public class HTTPServer {
 
     private final ConnectionsExecutor executor;
     private Logger logger;
+    private String root;
     private final ServerSocket serverSocket;
 
-    public HTTPServer(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger) {
+    public HTTPServer(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger, String root) {
         this.serverSocket = serverSocket;
         this.executor = executor;
         this.logger = logger;
+        this.root = root;
     }
 
     public void start(ServerStatus serverStatus) {
@@ -27,7 +29,7 @@ public class HTTPServer {
                 Socket connectedSocket = serverSocket.accept();
                 RequestReader requestReader = new RequestReader(connectedSocket.getInputStream());
                 ResponseWriter responseWriter = new ResponseWriter(connectedSocket.getOutputStream());
-                executor.execute(new ConnectionHandler(requestReader, responseWriter, connectedSocket, logger));
+                executor.execute(new ConnectionHandler(requestReader, responseWriter, connectedSocket, logger, root));
             } catch (IOException e) {
                 throw new ConnectionException(e);
             }

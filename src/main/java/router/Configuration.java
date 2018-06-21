@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Configuration {
 
-    public Map<String, Controller> setControllers(Logger logger) {
+    public Map<String, Controller> setControllers(Logger logger, String root) {
         Map<String, Controller> controllers = new LinkedHashMap<>();
         controllers.put("/", new HomePage());
         controllers.put("/redirect", new RedirectPage());
@@ -22,11 +22,11 @@ public class Configuration {
         controllers.put("/method_options2", new MethodOptions2Page());
         controllers.put("/form", new FormPage());
         controllers.put("/put-target", new PutTargetPage());
-        controllers.put("/file1", new FilePage(new FileSystem()));
-        controllers.put("/text-file.txt", new FilePage(new FileSystem()));
+        controllers.put("/file1", new FilePage(new FileSystem(root)));
+        controllers.put("/text-file.txt", new FilePage(new FileSystem(root)));
         controllers.put("/coffee", new TeaPage());
         controllers.put("/tea", new TeaPage());
-        controllers.put("/patch-content.txt", new FilePage(new FileSystem()));
+        controllers.put("/patch-content.txt", new FilePage(new FileSystem(root)));
         return controllers;
     }
 }
