@@ -21,7 +21,7 @@ public class RouterTest {
     @Before
     public void createInstances() {
         logger = new Logger();
-        router = new Router(logger);
+        router = new Router(logger, "");
     }
 
     @Test

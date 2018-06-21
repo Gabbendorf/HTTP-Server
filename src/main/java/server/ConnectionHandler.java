@@ -20,11 +20,11 @@ public class ConnectionHandler implements Runnable {
     private final Closeable socket;
     private final Router router;
 
-    public ConnectionHandler(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger) {
+    public ConnectionHandler(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket, Logger logger, String directory) {
         this.requestReader = requestReader;
         this.responseWriter = responseWriter;
         this.socket = socket;
-        this.router = new Router(logger);
+        this.router = new Router(logger, directory);
     }
 
     @Override

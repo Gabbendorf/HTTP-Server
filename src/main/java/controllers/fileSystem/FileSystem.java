@@ -10,13 +10,17 @@ import java.nio.file.Paths;
 
 public class FileSystem {
 
-    private final static String ABSOLUTE_PATH = "/Users/gabi/Desktop/MyApprenticeship/IPM/Java/HTTPServer/cob_spec/public/";
     private PrintWriter writer = null;
+    private String directory;
+
+    public FileSystem(String directory) {
+        this.directory = directory;
+    }
 
     public String readContentFor(String path) {
         String content;
         try {
-            content = new String(Files.readAllBytes(Paths.get(ABSOLUTE_PATH + fileName(path))));
+            content = new String(Files.readAllBytes(Paths.get(directory + path)));
         } catch (IOException e) {
             throw new InputStreamException(e);
         }
@@ -46,11 +50,8 @@ public class FileSystem {
     }
 
     private File file(String path) {
-        File file = new File(ABSOLUTE_PATH + fileName(path));
+        File file = new File(directory + path);
         file.getParentFile().mkdirs();
         return file;
-    }
-    private String fileName(String path) {
-        return new StringBuilder(path).deleteCharAt(0).toString();
     }
 }
