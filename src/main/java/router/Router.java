@@ -1,6 +1,7 @@
 package router;
 
 import controllers.*;
+import controllers.fileSystem.FileSystem;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -11,8 +12,8 @@ public class Router {
     private final Map<String, Controller> controllers;
     private final Logger logger;
 
-    public Router(Logger logger) {
-        this.controllers = new Configuration().setControllers(logger);
+    public Router(Logger logger, FileSystem fileSystem) {
+        this.controllers = new Configuration().setControllers(logger, fileSystem);
         this.logger = logger;
     }
 

@@ -1,5 +1,6 @@
 package server;
 
+import controllers.fileSystem.FileSystem;
 import exceptions.ConnectionException;
 import request.RequestReader;
 import response.ResponseWriter;
@@ -13,12 +14,14 @@ public class HTTPServer {
 
     private final ConnectionsExecutor executor;
     private Logger logger;
+    private FileSystem fileSystem;
     private final ServerSocket serverSocket;
 
-    public HTTPServer(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger) {
+    public HTTPServer(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger, FileSystem fileSystem) {
         this.serverSocket = serverSocket;
         this.executor = executor;
         this.logger = logger;
+        this.fileSystem = fileSystem;
     }
 
     public void start(ServerStatus serverStatus) {
@@ -26,8 +29,8 @@ public class HTTPServer {
             try {
                 Socket connectedSocket = serverSocket.accept();
                 RequestReader requestReader = new RequestReader(connectedSocket.getInputStream());
-                ResponseWriter responseWriter = new ResponseWriter(connectedSocket.getOutputStream());
-                executor.execute(new ConnectionHandler(requestReader, responseWriter, connectedSocket, logger));
+                ResponseWriter responseWriter = new ResponseWriter(connectedSocket.getOutputStream(), connectedSocket);
+                executor.execute(new ConnectionHandler(requestReader, responseWriter, logger, fileSystem));
             } catch (IOException e) {
                 throw new ConnectionException(e);
             }

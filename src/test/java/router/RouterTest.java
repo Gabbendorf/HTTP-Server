@@ -1,5 +1,6 @@
 package router;
 
+import controllers.fileSystem.FileSystem;
 import request.HTTPMethod;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class RouterTest {
     @Before
     public void createInstances() {
         logger = new Logger();
-        router = new Router(logger);
+        router = new Router(logger, new FileSystem(""));
     }
 
     @Test

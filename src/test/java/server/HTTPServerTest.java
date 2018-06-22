@@ -1,5 +1,6 @@
 package server;
 
+import controllers.fileSystem.FileSystem;
 import exceptions.ConnectionException;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +26,7 @@ public class HTTPServerTest {
 
     @Test
     public void executesMultipleConnections() {
-        HTTPServer server = new HTTPServer(serverSocketStub, executorSpy, logger);
+        HTTPServer server = new HTTPServer(serverSocketStub, executorSpy, logger, new FileSystem("/"));
 
         server.start(new ServerStatusStub());
 
@@ -34,7 +35,7 @@ public class HTTPServerTest {
 
     @Test(expected = ConnectionException.class)
     public void throwsConnectionException() {
-        HTTPServerWithException httpServerWithException = new HTTPServerWithException(serverSocketStub, executorSpy, logger);
+        HTTPServerWithException httpServerWithException = new HTTPServerWithException(serverSocketStub, executorSpy, logger, new FileSystem("/"));
 
         httpServerWithException.start(new ServerStatusStub());
     }
@@ -69,8 +70,8 @@ public class HTTPServerTest {
 
     class HTTPServerWithException extends HTTPServer {
 
-        public HTTPServerWithException(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger) {
-            super(serverSocket, executor, logger);
+        public HTTPServerWithException(ServerSocket serverSocket, ConnectionsExecutor executor, Logger logger, FileSystem fileSystem) {
+            super(serverSocket, executor, logger, fileSystem);
         }
 
         @Override
