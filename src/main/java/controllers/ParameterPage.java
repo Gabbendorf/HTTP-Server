@@ -6,8 +6,7 @@ import response.HTTPResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static response.StatusLine.OK;
 
@@ -15,23 +14,13 @@ public class ParameterPage extends Controller {
 
     @Override
     public HTTPResponse get(HTTPRequest request) {
-        return new HTTPResponse(OK, buildBodyWith(decodedParameters(request)));
+        return new HTTPResponse(OK, buildBodyWith(parametersDecoded(request)));
     }
 
-    private Map<String, String> decodedParameters(HTTPRequest request) {
-        Map<String, String> decodedParameters = new HashMap<>();
-        if (containsMoreParameters(request)) {
-            decodeAllParameters(request, decodedParameters);
-        } else {
-            decodeParameter(decodedParameters, request.getQueryString());
-        }
-        return decodedParameters;
-    }
-
-    private String buildBodyWith(Map<String, String> decodedParameters) {
+    private String buildBodyWith(Map<String, String> parametersDecoded) {
         StringBuilder responseBody = new StringBuilder();
-        for (Map.Entry<String, String> decodedParameter : decodedParameters.entrySet()) {
-            responseBody.append(decodedParameter.getKey() + " = " + decodedParameter.getValue() + "\n");
+        for (Map.Entry<String, String> parameterDecoded: parametersDecoded.entrySet()) {
+            responseBody.append(parameterDecoded.getKey() + " = " + parameterDecoded.getValue() + "\n");
         }
         return responseBody.toString();
     }
@@ -40,19 +29,32 @@ public class ParameterPage extends Controller {
         return request.getQueryString().contains("&");
     }
 
-    private void decodeAllParameters(HTTPRequest request, Map<String, String> decodedParameters) {
-        String[] parameters = request.getQueryString().split("&");
-        for (String parameter : parameters) {
-            decodeParameter(decodedParameters, parameter);
+    private Map<String, String> parametersDecoded(HTTPRequest request) {
+        Map<String, String> parametersDecoded = new HashMap<>();
+        for (String parameter : parameters(request)) {
+            String[] splitKeyAndValue = parameter.split("=");
+            parametersDecoded.put(splitKeyAndValue[0], decode(splitKeyAndValue[1]));
         }
+        return parametersDecoded;
     }
 
-    private void decodeParameter(Map<String, String> decodedParameters, String parameter) {
-        String[] splitKeyAndValue = parameter.split("=");
+    private List<String> parameters(HTTPRequest request) {
+        List<String> parameters = new ArrayList<>();
+        if (containsMoreParameters(request)) {
+            Collections.addAll(parameters, request.getQueryString().split("&"));
+        } else {
+            parameters.add(request.getQueryString());
+        }
+        return parameters;
+    }
+
+    private String decode(String parameter) {
+        String decodedParameter;
         try {
-            decodedParameters.put(splitKeyAndValue[0], URLDecoder.decode(splitKeyAndValue[1], "UTF-8"));
+            decodedParameter = URLDecoder.decode(parameter, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new NotSupportedEncodingException(e);
         }
+        return decodedParameter;
     }
 }
