@@ -2,11 +2,11 @@ package controllers.fileSystem;
 
 import request.HTTPRequest;
 
-public class FileControllerStub extends FileController {
+public class FileControllerFake extends FileController {
 
     private String etag;
 
-    FileControllerStub(FileSystem fileSystem) {
+    FileControllerFake(FileSystem fileSystem) {
         super(fileSystem);
     }
 

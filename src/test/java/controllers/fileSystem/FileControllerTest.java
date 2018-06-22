@@ -19,12 +19,12 @@ import static response.StatusLine.PRECONDITION_FAILED;
 public class FileControllerTest {
 
     private FileSystem fileSystem;
-    private FileControllerStub fileControllerStub;
+    private FileControllerFake fileControllerFake;
 
     @Before
     public void createInstance() {
         fileSystem = new FileSystem("src/test/java/root");
-        fileControllerStub = new FileControllerStub(fileSystem);
+        fileControllerFake = new FileControllerFake(fileSystem);
         fileSystem.writeTo("Hello", "/file.txt");
     }
 
@@ -40,36 +40,36 @@ public class FileControllerTest {
 
     @Test
     public void respondsWithNoContentForMatchingEtagInPatchRequest() {
-        fileControllerStub.setEtag("12");
+        fileControllerFake.setEtag("12");
 
-        HTTPResponse response = fileControllerStub.patch(requestWithEtagAndBody("/file.txt","12", "hi"));
+        HTTPResponse response = fileControllerFake.patch(requestWithEtagAndBody("/file.txt","12", "hi"));
 
         assertEquals(NO_CONTENT.message, response.getStatusLine());
     }
 
     @Test
     public void writesBodyContentToFileForMatchingEtagInPatchRequest() {
-        fileControllerStub.setEtag("12");
+        fileControllerFake.setEtag("12");
 
-        fileControllerStub.patch(requestWithEtagAndBody("/file.txt","12", "hi"));
+        fileControllerFake.patch(requestWithEtagAndBody("/file.txt","12", "hi"));
 
         assertEquals("hi", fileSystem.readContentFor("/file.txt"));
     }
 
     @Test
     public void respondsWithPreconditionFailedForNotMatchingEtagInPatchRequest() {
-        fileControllerStub.setEtag("12");
+        fileControllerFake.setEtag("12");
 
-        HTTPResponse response = fileControllerStub.patch(requestWithEtagAndBody("/file.txt","10", "hi"));
+        HTTPResponse response = fileControllerFake.patch(requestWithEtagAndBody("/file.txt","10", "hi"));
 
         assertEquals(PRECONDITION_FAILED.message, response.getStatusLine());
     }
 
     @Test
     public void doesNotChangeFileContentIfNotMatchingEtagInPatchRequest() {
-        fileControllerStub.setEtag("12");
+        fileControllerFake.setEtag("12");
 
-        fileControllerStub.patch(requestWithEtagAndBody("/file.txt","10", "hi"));
+        fileControllerFake.patch(requestWithEtagAndBody("/file.txt","10", "hi"));
 
         assertEquals("Hello", fileSystem.readContentFor("/file.txt"));
     }
