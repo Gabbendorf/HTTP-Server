@@ -24,6 +24,6 @@ public class Router {
     }
 
     private Controller getController(String requestPath) {
-        return controllers.getOrDefault(requestPath, new NotFoundPage());
+        return controllers.getOrDefault(requestPath, new NotFoundController());
     }
 }

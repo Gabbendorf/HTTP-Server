@@ -10,7 +10,7 @@ import java.util.*;
 
 import static response.StatusLine.OK;
 
-public class ParameterPage extends Controller {
+public class ParameterController extends Controller {
 
     @Override
     public HTTPResponse get(HTTPRequest request) {

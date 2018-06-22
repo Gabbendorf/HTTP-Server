@@ -10,34 +10,34 @@ import static request.HTTPMethod.*;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 
-public class HomePageTest {
+public class HomeControllerTest {
 
-    private HomePage homePage;
+    private HomeController homeController;
     private String root;
 
     @Before
     public void createInstance() {
         root = "src/test/java/root";
-        homePage = new HomePage(new FileSystem(root));
+        homeController = new HomeController(new FileSystem(root));
     }
 
     @Test
     public void respondsWithOkToGetRequest() {
-        HTTPResponse response = homePage.get(new HTTPRequest(GET.method, root));
+        HTTPResponse response = homeController.get(new HTTPRequest(GET.method, root));
 
         assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void servesRootContentInBody() {
-        HTTPResponse response = homePage.get(new HTTPRequest(GET.method, root));
+        HTTPResponse response = homeController.get(new HTTPRequest(GET.method, root));
 
         assertEquals("file.txt\nfile2.txt", response.getBody());
     }
 
     @Test
     public void respondsWithOkToHeadRequest() {
-        HTTPResponse response = homePage.head(new HTTPRequest(HEAD.method, "/"));
+        HTTPResponse response = homeController.head(new HTTPRequest(HEAD.method, "/"));
 
         assertEquals(OK.message, response.getStatusLine());
     }

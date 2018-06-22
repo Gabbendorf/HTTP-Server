@@ -14,32 +14,32 @@ import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 import static response.StatusLine.UNAUTHORIZED;
 
-public class LogsPageTest {
+public class LogsControllerTest {
 
-    private LogsPage logsPage;
+    private LogsController logsController;
 
     @Before
     public void createInstance() {
-        logsPage = new LogsPage(new Logger());
+        logsController = new LogsController(new Logger());
     }
 
     @Test
     public void respondsWithUnauthorizedStatusCodeForMissingAuthorizationHeader() {
-        HTTPResponse response = logsPage.get(new HTTPRequest(GET.method, "/logs", headers("Localhost", "")));
+        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, "/logs", headers("Localhost", "")));
 
         assertEquals(UNAUTHORIZED.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithWWWAuthenticateHeaderForMissingAuthorisationHeader() {
-        HTTPResponse response = logsPage.get(new HTTPRequest(GET.method, "/logs", headers("Localhost", "")));
+        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, "/logs", headers("Localhost", "")));
 
         assertEquals("WWW-Authenticate: Basic realm=\"AccessToTheLogs\"", response.getHeaders());
     }
 
     @Test
     public void respondsWithOkForAuthorizedRequest() {
-        HTTPResponse response = logsPage.get(new HTTPRequest(GET.method, "/logs", headers("Authorization", "Basic YWRtaW46aHVudGVyMg==")));
+        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, "/logs", headers("Authorization", "Basic YWRtaW46aHVudGVyMg==")));
 
         assertEquals(OK.message, response.getStatusLine());
     }

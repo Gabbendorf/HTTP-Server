@@ -2,11 +2,11 @@ package controllers.fileSystem;
 
 import request.HTTPRequest;
 
-public class FilePageStub extends FilePage {
+public class FileControllerStub extends FileController {
 
     private String etag;
 
-    FilePageStub(FileSystem fileSystem) {
+    FileControllerStub(FileSystem fileSystem) {
         super(fileSystem);
     }
 

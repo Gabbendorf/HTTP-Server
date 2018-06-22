@@ -5,7 +5,7 @@ import response.HTTPResponse;
 
 import static response.StatusLine.NOT_FOUND;
 
-public class NotFoundPage extends Controller {
+public class NotFoundController extends Controller {
 
     private HTTPResponse notFoundResponse = new HTTPResponse(NOT_FOUND);
 

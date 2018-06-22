@@ -10,12 +10,12 @@ import java.util.Base64;
 import static response.StatusLine.OK;
 import static response.StatusLine.UNAUTHORIZED;
 
-public class LogsPage extends Controller {
+public class LogsController extends Controller {
 
     private final static String AUTHORIZATION = "Authorization";
     private Logger logger;
 
-    public LogsPage(Logger logger) {
+    public LogsController(Logger logger) {
         this.logger = logger;
     }
 
