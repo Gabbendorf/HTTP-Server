@@ -1,3 +1,4 @@
+import controllers.fileSystem.FileSystem;
 import router.Logger;
 import server.ThreadsExecutor;
 import server.HTTPServer;
@@ -19,7 +20,7 @@ public class ServerRunner {
             HTTPServer server = new HTTPServer(new ServerSocket(port),
                                                new ThreadsExecutor(threadPool),
                                                new Logger(),
-                                               root);
+                                               new FileSystem(root));
 
             server.start(new ServerStatus());
         } catch (IOException e) {

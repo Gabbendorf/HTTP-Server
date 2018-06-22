@@ -1,5 +1,6 @@
 package server;
 
+import controllers.fileSystem.FileSystem;
 import request.HTTPRequest;
 import request.RequestReader;
 import response.HTTPResponse;
@@ -17,10 +18,10 @@ public class ConnectionHandler implements Runnable {
     private final ResponseWriter responseWriter;
     private final Router router;
 
-    public ConnectionHandler(RequestReader requestReader, ResponseWriter responseWriter, Logger logger, String root) {
+    public ConnectionHandler(RequestReader requestReader, ResponseWriter responseWriter, Logger logger, FileSystem fileSystem) {
         this.requestReader = requestReader;
         this.responseWriter = responseWriter;
-        this.router = new Router(logger, root);
+        this.router = new Router(logger, fileSystem);
     }
 
     @Override

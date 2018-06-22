@@ -1,5 +1,6 @@
 package server;
 
+import controllers.fileSystem.FileSystem;
 import org.junit.Before;
 import org.junit.Test;
 import request.HTTPRequest;
@@ -23,7 +24,7 @@ public class ConnectionHandlerTest {
         requestReader = new RequestReaderSpy(new ByteArrayInputStream("".getBytes()));
         responseWriter = new ResponseWriterSpy(new ByteArrayOutputStream(), new SocketStub());
         logger = new Logger();
-        connectionHandler = new ConnectionHandler(requestReader, responseWriter, logger, "");
+        connectionHandler = new ConnectionHandler(requestReader, responseWriter, logger, new FileSystem("/"));
     }
 
     @Test
@@ -42,7 +43,7 @@ public class ConnectionHandlerTest {
 
     @Test(expected = RuntimeException.class)
     public void throwsRunTimeException() {
-        ConnectionHandlerWithRunTimeException connectionHandler = new ConnectionHandlerWithRunTimeException(requestReader, responseWriter, logger, "");
+        ConnectionHandlerWithRunTimeException connectionHandler = new ConnectionHandlerWithRunTimeException(requestReader, responseWriter, logger, new FileSystem("/"));
 
         connectionHandler.run();
     }
@@ -78,8 +79,8 @@ public class ConnectionHandlerTest {
 
     class ConnectionHandlerWithRunTimeException extends ConnectionHandler {
 
-        public ConnectionHandlerWithRunTimeException(RequestReader requestReader, ResponseWriter responseWriter, Logger logger, String directory) {
-            super(requestReader, responseWriter, logger, directory);
+        public ConnectionHandlerWithRunTimeException(RequestReader requestReader, ResponseWriter responseWriter, Logger logger, FileSystem fileSystem) {
+            super(requestReader, responseWriter, logger, fileSystem);
         }
 
         @Override
