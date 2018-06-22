@@ -22,7 +22,7 @@ public class RouterTest {
     @Before
     public void createInstances() {
         logger = new Logger();
-        router = new Router(logger, new FileSystem(""));
+        router = new Router(logger, new FileSystem("/"));
     }
 
     @Test

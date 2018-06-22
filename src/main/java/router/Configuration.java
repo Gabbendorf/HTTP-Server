@@ -12,7 +12,7 @@ public class Configuration {
 
     public Map<String, Controller> setControllers(Logger logger, FileSystem fileSystem) {
         Map<String, Controller> controllers = new LinkedHashMap<>();
-        controllers.put("/", new HomePage());
+        controllers.put("/", new HomePage(fileSystem));
         controllers.put("/redirect", new RedirectPage());
         controllers.put("/cookie", new CookiePage());
         controllers.put("/parameters", new ParameterPage());

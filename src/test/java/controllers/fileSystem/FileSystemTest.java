@@ -7,7 +7,18 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import static org.junit.Assert.assertEquals;
+
 public class FileSystemTest {
+
+    @Test
+    public void listsRootContent() {
+        FileSystem fileSystem = new FileSystem("src/test/java/root");
+
+        String rootContent = fileSystem.rootContent();
+
+        assertEquals("file.txt\nfile2.txt", rootContent);
+    }
 
     @Test(expected = NotExistingFileException.class)
     public void throwsFileException() {
