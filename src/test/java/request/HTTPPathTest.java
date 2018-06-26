@@ -36,6 +36,15 @@ public class HTTPPathTest {
     }
 
     @Test
+    public void getsFirstSegment() {
+        HTTPPath path = new HTTPPath("/");
+
+        String firstSegment = path.getFirstSegment();
+
+        assertEquals("/", firstSegment);
+    }
+
+    @Test
     public void getsLastSegment() {
         String lastSegment = path.getLastSegment();
 

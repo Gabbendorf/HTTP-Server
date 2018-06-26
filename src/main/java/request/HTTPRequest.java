@@ -36,7 +36,7 @@ public class HTTPRequest {
     }
 
     public String getFirstPathSegment() {
-        return path.getSegmentNumber(1);
+        return path.getFirstSegment();
     }
 
     public String getLastPathSegment() {

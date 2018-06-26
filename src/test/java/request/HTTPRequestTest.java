@@ -43,9 +43,11 @@ public class HTTPRequestTest {
 
     @Test
     public void getsFirstSegmentOfPath() {
+        HTTPRequest httpRequest = new HTTPRequest(GET.method, new HTTPPath("/"));
+
         String firstPathSegment = httpRequest.getFirstPathSegment();
 
-        assertEquals("/path", firstPathSegment);
+        assertEquals("/", firstPathSegment);
     }
 
     @Test

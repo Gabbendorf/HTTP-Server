@@ -33,14 +33,22 @@ public class HTTPPath {
     }
 
     public String getLastSegment() {
-        return "/" + segments.get(segments.size() - 1);
+        return getSegmentNumber(segments.size() - 1);
     }
 
-    public String getSegmentNumber(int number) {
-        return "/" + segments.get(number);
+    public String getFirstSegment() {
+        String segment = "/";
+        if (!segments.isEmpty()) {
+            segment = getSegmentNumber(1);
+        }
+        return segment;
     }
 
     private boolean containsQueryString() {
         return path.contains("?");
+    }
+
+    public String getSegmentNumber(int number) {
+        return "/" + segments.get(number);
     }
 }
