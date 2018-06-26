@@ -1,15 +1,14 @@
 package server;
 
-import exceptions.SocketClosureException;
+import controllers.fileSystem.FileSystem;
 import org.junit.Before;
 import org.junit.Test;
 import request.HTTPRequest;
 import request.RequestReader;
 import response.ResponseWriter;
+import router.Logger;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,14 +17,14 @@ public class ConnectionHandlerTest {
     private ConnectionHandler connectionHandler;
     private RequestReaderSpy requestReader;
     private ResponseWriterSpy responseWriter;
-    private SocketStub socketStub;
+    private Logger logger;
 
     @Before
     public void createInstances() {
         requestReader = new RequestReaderSpy(new ByteArrayInputStream("".getBytes()));
-        responseWriter = new ResponseWriterSpy(new ByteArrayOutputStream());
-        socketStub = new SocketStub();
-        connectionHandler = new ConnectionHandler(requestReader, responseWriter, socketStub);
+        responseWriter = new ResponseWriterSpy(new ByteArrayOutputStream(), new SocketStub());
+        logger = new Logger();
+        connectionHandler = new ConnectionHandler(requestReader, responseWriter, logger, new FileSystem("/"));
     }
 
     @Test
@@ -42,16 +41,9 @@ public class ConnectionHandlerTest {
         assertTrue(responseWriter.hasWritten);
     }
 
-    @Test
-    public void closesSocket() {
-        connectionHandler.run();
-
-        assertTrue(socketStub.isClosed);
-    }
-
-    @Test(expected = SocketClosureException.class)
-    public void throwsSocketClosureException() {
-        ConnectionHandlerWithException connectionHandler = new ConnectionHandlerWithException(requestReader, responseWriter, socketStub);
+    @Test(expected = RuntimeException.class)
+    public void throwsRunTimeException() {
+        ConnectionHandlerWithRunTimeException connectionHandler = new ConnectionHandlerWithRunTimeException(requestReader, responseWriter, logger, new FileSystem("/"));
 
         connectionHandler.run();
     }
@@ -75,8 +67,8 @@ public class ConnectionHandlerTest {
 
         public boolean hasWritten = false;
 
-        public ResponseWriterSpy(OutputStream outputStream) {
-            super(outputStream);
+        public ResponseWriterSpy(OutputStream outputStream, SocketStub socketStub) {
+            super(outputStream, socketStub);
         }
 
         @Override
@@ -85,15 +77,15 @@ public class ConnectionHandlerTest {
         }
     }
 
-    class ConnectionHandlerWithException extends ConnectionHandler {
+    class ConnectionHandlerWithRunTimeException extends ConnectionHandler {
 
-        public ConnectionHandlerWithException(RequestReader requestReader, ResponseWriter responseWriter, Closeable socket) {
-            super(requestReader, responseWriter, socket);
+        public ConnectionHandlerWithRunTimeException(RequestReader requestReader, ResponseWriter responseWriter, Logger logger, FileSystem fileSystem) {
+            super(requestReader, responseWriter, logger, fileSystem);
         }
 
         @Override
         public void run() {
-            throw new SocketClosureException(new IOException());
+            throw new RuntimeException();
         }
     }
 }

@@ -1,4 +1,4 @@
-package controllers;
+package request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ public enum HTTPMethod {
     OPTIONS("OPTIONS"),
     POST("POST"),
     PUT("PUT"),
+    PATCH("PATCH"),
     INVALID("INVALID");
 
     public final String method;

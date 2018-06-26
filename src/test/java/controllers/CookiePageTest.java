@@ -23,7 +23,7 @@ public class CookiePageTest {
 
     @Test
     public void respondsWithOkSetCookeAndBodyForNoCookieRequest() {
-        HTTPResponse response = cookiePage.get(new HTTPRequest(GET, "/cookie?type=chocolate", headers(""), ""));
+        HTTPResponse response = cookiePage.get(new HTTPRequest(GET, "/cookie?type=chocolate", headers("")));
 
         assertEquals(OK.message, response.getStatusLine());
         assertEquals("Set-Cookie: type=chocolate", response.getHeaders());
@@ -32,7 +32,7 @@ public class CookiePageTest {
 
     @Test
     public void respondsWithOkAndBodyForCookieRequest() {
-        HTTPResponse response = cookiePage.get(new HTTPRequest(GET, "/eat_cookie", headers("Cookie"), ""));
+        HTTPResponse response = cookiePage.get(new HTTPRequest(GET, "/eat_cookie", headers("Cookie")));
 
         assertEquals(OK.message, response.getStatusLine());
         assertEquals("mmmm chocolate", response.getBody());

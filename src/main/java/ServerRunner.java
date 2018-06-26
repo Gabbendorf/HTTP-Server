@@ -1,3 +1,5 @@
+import controllers.fileSystem.FileSystem;
+import router.Logger;
 import server.ThreadsExecutor;
 import server.HTTPServer;
 import server.ServerStatus;
@@ -10,11 +12,15 @@ import java.util.concurrent.Executors;
 public class ServerRunner {
 
     private static ExecutorService threadPool = Executors.newFixedThreadPool(20);
-    private static int port = 5000;
 
     public static void main(String[] args) {
+        int port = Integer.parseInt(args[1]);
+        String root = args[3];
         try {
-            HTTPServer server = new HTTPServer(new ServerSocket(port), new ThreadsExecutor(threadPool));
+            HTTPServer server = new HTTPServer(new ServerSocket(port),
+                                               new ThreadsExecutor(threadPool),
+                                               new Logger(),
+                                               new FileSystem(root));
 
             server.start(new ServerStatus());
         } catch (IOException e) {
