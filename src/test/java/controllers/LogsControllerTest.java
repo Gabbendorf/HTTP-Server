@@ -2,6 +2,7 @@ package controllers;
 
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 import router.Logger;
@@ -25,21 +26,21 @@ public class LogsControllerTest {
 
     @Test
     public void respondsWithUnauthorizedStatusCodeForMissingAuthorizationHeader() {
-        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, "/logs", headers("Localhost", "")));
+        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, new HTTPPath("/logs"), headers("Localhost", "")));
 
         assertEquals(UNAUTHORIZED.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithWWWAuthenticateHeaderForMissingAuthorisationHeader() {
-        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, "/logs", headers("Localhost", "")));
+        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, new HTTPPath("/logs"), headers("Localhost", "")));
 
         assertEquals("WWW-Authenticate: Basic realm=\"AccessToTheLogs\"", response.getHeaders());
     }
 
     @Test
     public void respondsWithOkForAuthorizedRequest() {
-        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, "/logs", headers("Authorization", "Basic YWRtaW46aHVudGVyMg==")));
+        HTTPResponse response = logsController.get(new HTTPRequest(GET.method, new HTTPPath("/logs"), headers("Authorization", "Basic YWRtaW46aHVudGVyMg==")));
 
         assertEquals(OK.message, response.getStatusLine());
     }

@@ -2,6 +2,7 @@ package controllers;
 
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -21,14 +22,14 @@ public class TeaControllerTest {
 
     @Test
     public void respondsWithOkForTeaRequest() {
-        HTTPResponse response = teaController.get(new HTTPRequest(GET.method, "/tea"));
+        HTTPResponse response = teaController.get(new HTTPRequest(GET.method, new HTTPPath("/tea")));
 
         assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWith418AndBodyForCoffeeRequest() {
-        HTTPResponse response = teaController.get(new HTTPRequest(GET.method, "/coffee"));
+        HTTPResponse response = teaController.get(new HTTPRequest(GET.method, new HTTPPath("/coffee")));
 
         assertEquals(TEAPOT.message, response.getStatusLine());
         assertEquals("I'm a teapot", response.getBody());

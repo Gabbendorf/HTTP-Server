@@ -1,6 +1,7 @@
 package controllers;
 
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -14,7 +15,7 @@ public class RedirectControllerTest {
     public void respondsWithFoundAndLocationHeaderToGetRequest() {
         RedirectController redirectController = new RedirectController();
 
-        HTTPResponse response = redirectController.get(new HTTPRequest(GET.method, "/"));
+        HTTPResponse response = redirectController.get(new HTTPRequest(GET.method, new HTTPPath("/")));
 
         assertEquals(FOUND.message, response.getStatusLine());
         assertEquals("Location: /", response.getHeaders());

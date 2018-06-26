@@ -2,6 +2,7 @@ package controllers.fileSystem;
 
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import request.RequestParser;
 import response.HTTPResponse;
@@ -32,7 +33,7 @@ public class FileControllerTest {
     public void respondsWithOkAndFileContentToGetRequest() {
         FileController fileController = new FileController(fileSystem);
 
-        HTTPResponse response = fileController.get(new HTTPRequest(GET.method, "/file.txt"));
+        HTTPResponse response = fileController.get(new HTTPRequest(GET.method, new HTTPPath("/file.txt")));
 
         assertEquals(OK.message, response.getStatusLine());
         assertEquals("Hello", response.getBody());
@@ -75,7 +76,7 @@ public class FileControllerTest {
     }
 
     private HTTPRequest requestWithEtagAndBody(String path, String etag, String body) {
-        return new HTTPRequest(PATCH.method, path, headers("If-Match", etag), body);
+        return new HTTPRequest(PATCH.method, new HTTPPath(path), headers("If-Match", etag), body);
     }
 
     private Map<String, String> headers(String ifMatchHeader, String etag) {

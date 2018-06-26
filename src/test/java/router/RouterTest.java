@@ -4,6 +4,7 @@ import controllers.fileSystem.FileSystem;
 import request.HTTPMethod;
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -54,6 +55,6 @@ public class RouterTest {
     }
 
     private HTTPRequest newRequest(HTTPMethod method, String path) {
-        return new HTTPRequest(method.name(), path);
+        return new HTTPRequest(method.name(), new HTTPPath(path));
     }
 }

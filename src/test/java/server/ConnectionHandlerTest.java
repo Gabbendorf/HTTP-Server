@@ -3,6 +3,7 @@ package server;
 import controllers.fileSystem.FileSystem;
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import request.RequestReader;
 import response.ResponseWriter;
@@ -59,7 +60,7 @@ public class ConnectionHandlerTest {
         @Override
         public HTTPRequest readRequest() {
             hasRead = true;
-            return new HTTPRequest("", "");
+            return new HTTPRequest("", new HTTPPath(""));
         }
     }
 

@@ -15,9 +15,9 @@ public class HTTPRequestTest {
 
     @Before
     public void setUpHTTPRequest() {
-        Map<String, String> headers = new LinkedHashMap<>();
+        LinkedHashMap<String, String> headers = new LinkedHashMap<>();
         headers.put("Localhost", "/");
-        httpRequest = new HTTPRequest(GET.method, "/?name=gabi", headers, "body");
+        httpRequest = new HTTPRequest(GET.method, new HTTPPath("/path/to?name=gabi"), headers, "body");
     }
 
     @Test
@@ -31,7 +31,7 @@ public class HTTPRequestTest {
     public void getsRequestPathWithoutQueryString() {
         String path = httpRequest.getPath();
 
-        assertEquals("/", path);
+        assertEquals("/path/to", path);
     }
 
     @Test
@@ -42,10 +42,24 @@ public class HTTPRequestTest {
     }
 
     @Test
+    public void getsFirstSegmentOfPath() {
+        String firstPathSegment = httpRequest.getFirstPathSegment();
+
+        assertEquals("/path", firstPathSegment);
+    }
+
+    @Test
+    public void getsLastSegmentOfPath() {
+        String lastPathSegment = httpRequest.getLastPathSegment();
+
+        assertEquals("/to", lastPathSegment);
+    }
+
+    @Test
     public void getsRequestLine() {
         String requestLine = httpRequest.getRequestLine();
 
-        assertEquals("GET / HTTP/1.1", requestLine);
+        assertEquals("GET /path/to HTTP/1.1", requestLine);
     }
 
     @Test

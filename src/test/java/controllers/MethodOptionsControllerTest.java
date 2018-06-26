@@ -1,6 +1,7 @@
 package controllers;
 
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -14,7 +15,7 @@ public class MethodOptionsControllerTest {
     public void respondsWithOkAndAllowHeaderToOptionsRequest() {
         MethodOptionsController methodOptionsController = new MethodOptionsController();
 
-        HTTPResponse response = methodOptionsController.options(new HTTPRequest(OPTIONS.method, "/"));
+        HTTPResponse response = methodOptionsController.options(new HTTPRequest(OPTIONS.method, new HTTPPath("/")));
 
         assertEquals(OK.message, response.getStatusLine());
         assertEquals("Allow: GET,HEAD,POST,OPTIONS,PUT", response.getHeaders());

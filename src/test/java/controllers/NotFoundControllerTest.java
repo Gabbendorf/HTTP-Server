@@ -3,6 +3,7 @@ package controllers;
 import org.junit.Before;
 import org.junit.Test;
 import request.HTTPMethod;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -36,7 +37,7 @@ public class NotFoundControllerTest {
     }
 
     private HTTPRequest newRequest(HTTPMethod method, String path) {
-        return new HTTPRequest(method.method, path);
+        return new HTTPRequest(method.method, new HTTPPath(path));
     }
 
     private void addResponse(HTTPResponse response) {

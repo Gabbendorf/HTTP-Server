@@ -3,6 +3,7 @@ package controllers;
 import org.junit.Before;
 import org.junit.Test;
 import request.HTTPMethod;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -35,6 +36,6 @@ public class ControllerTest {
     }
 
     private HTTPRequest newRequest(HTTPMethod method) {
-        return new HTTPRequest(method.name(), "/");
+        return new HTTPRequest(method.name(), new HTTPPath("/"));
     }
 }
