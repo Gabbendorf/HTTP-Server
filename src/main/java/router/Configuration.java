@@ -21,6 +21,7 @@ public class Configuration {
         controllers.put("/method_options", new MethodOptionsController());
         controllers.put("/method_options2", new MethodOptions2Controller());
         controllers.put("/form", new FormController());
+        controllers.put("/cat-form", new CatFormController(fileSystem));
         controllers.put("/put-target", new PutTargetController());
         controllers.put("/file1", new FileController(fileSystem));
         controllers.put("/text-file.txt", new FileController(fileSystem));
