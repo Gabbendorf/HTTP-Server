@@ -24,6 +24,8 @@ public class Controller {
                 return options(request);
             case PATCH:
                 return patch(request);
+            case DELETE:
+                return delete(request);
             case INVALID:
                 return incorrect(request);
             default:
@@ -52,6 +54,10 @@ public class Controller {
     }
 
     protected HTTPResponse patch(HTTPRequest request) {
+        return notAllowedResponse();
+    }
+
+    protected HTTPResponse delete(HTTPRequest request) {
         return notAllowedResponse();
     }
 
