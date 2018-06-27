@@ -19,7 +19,7 @@ public class Router {
 
     public HTTPResponse route(HTTPRequest request) {
         logger.log(request.getRequestLine());
-        Controller controller = getController(request.getPath());
+        Controller controller = getController(request.getFirstPathSegment());
         return controller.respondTo(request);
     }
 
