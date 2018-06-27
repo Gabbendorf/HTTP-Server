@@ -10,7 +10,8 @@ public enum StatusLine {
     NO_CONTENT("204 No Content"),
     PRECONDITION_FAILED("412 precondition failed"),
     UNAUTHORIZED("401 Unauthorized Request"),
-    INTERNAL_SERVER_ERROR("500 Internal Server Error");
+    INTERNAL_SERVER_ERROR("500 Internal Server Error"),
+    CREATED("201 Created");
 
     StatusLine(String statusLine) {
         message = statusLine;

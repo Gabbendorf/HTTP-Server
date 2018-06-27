@@ -49,7 +49,7 @@ public class FileSystem {
         return new File(root).listFiles();
     }
 
-    private List<String> rootFilesNames() {
+    public List<String> rootFilesNames() {
         List<String> filesNames = new ArrayList<>();
         for (File file : rootFiles()) {
             filesNames.add(file.getName());
@@ -71,5 +71,15 @@ public class FileSystem {
         File file = new File(root + path);
         file.getParentFile().mkdirs();
         return file;
+    }
+
+    public boolean fileDoesNotExist(String path) {
+        String fileName = path.split("/")[1];
+        return !rootFilesNames().contains(fileName);
+    }
+
+    public void deleteFile(String path) {
+        File fileToDelete = new File(root + path);
+        fileToDelete.delete();
     }
 }

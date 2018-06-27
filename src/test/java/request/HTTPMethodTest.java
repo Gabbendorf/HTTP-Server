@@ -50,6 +50,13 @@ public class HTTPMethodTest {
     }
 
     @Test
+    public void createsDelete() {
+        HTTPMethod method = HTTPMethod.create("DELETE");
+
+        assertEquals(DELETE, method);
+    }
+
+    @Test
     public void createsInvalid() {
         HTTPMethod method = HTTPMethod.create("FHIWVIW");
 

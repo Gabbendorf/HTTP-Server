@@ -27,6 +27,12 @@ public class HTTPRequest {
         this.path = path;
     }
 
+    public HTTPRequest(String method, HTTPPath path, String body) {
+        this.method = method;
+        this.path = path;
+        this.body = body;
+    }
+
     public String getMethod() {
         return method;
     }
