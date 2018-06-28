@@ -1,9 +1,9 @@
-package controllers;
+package request;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static controllers.HTTPMethod.*;
+import static request.HTTPMethod.*;
 
 public class HTTPMethodTest {
 
@@ -40,6 +40,20 @@ public class HTTPMethodTest {
         HTTPMethod method = HTTPMethod.create("HEAD");
 
         assertEquals(HEAD, method);
+    }
+
+    @Test
+    public void createsPatch() {
+        HTTPMethod method = HTTPMethod.create("PATCH");
+
+        assertEquals(PATCH, method);
+    }
+
+    @Test
+    public void createsDelete() {
+        HTTPMethod method = HTTPMethod.create("DELETE");
+
+        assertEquals(DELETE, method);
     }
 
     @Test

@@ -5,22 +5,18 @@ import response.HTTPResponse;
 
 import static response.StatusLine.OK;
 
-public class CookiePage extends Controller {
+public class CookieController extends Controller {
 
     @Override
     public HTTPResponse get(HTTPRequest request ) {
         if (hasCookieHeader(request)) {
             return new HTTPResponse(OK, String.format("mmmm %s", cookieType(request)));
         }
-        return new HTTPResponse(OK, String.format("Set-Cookie: %s", cookie(request)), "Eat");
+        return new HTTPResponse(OK, String.format("Set-Cookie: %s", request.getQueryString()), "Eat");
     }
 
     private boolean hasCookieHeader(HTTPRequest request) {
         return request.getHeaders().containsKey("Cookie");
-    }
-
-    private String cookie(HTTPRequest request) {
-        return request.getPath().split("\\?")[1];
     }
 
     private String cookieType(HTTPRequest request) {

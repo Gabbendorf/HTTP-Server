@@ -1,13 +1,15 @@
 package router;
 
-import controllers.HTTPMethod;
+import controllers.fileSystem.FileSystem;
+import request.HTTPMethod;
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.GET;
-import static controllers.HTTPMethod.INVALID;
+import static request.HTTPMethod.GET;
+import static request.HTTPMethod.INVALID;
 import static org.junit.Assert.assertEquals;
 import static response.StatusLine.NOT_ALLOWED;
 import static response.StatusLine.NOT_FOUND;
@@ -16,10 +18,19 @@ import static response.StatusLine.OK;
 public class RouterTest {
 
     private Router router;
+    private Logger logger;
 
     @Before
-    public void createInstance() {
-        router = new Router();
+    public void createInstances() {
+        logger = new Logger();
+        router = new Router(logger, new FileSystem("/"));
+    }
+
+    @Test
+    public void registersLogs() {
+        router.route(newRequest(GET,  "/"));
+
+        assertEquals("GET / HTTP/1.1\n", logger.getLogs());
     }
 
     @Test
@@ -44,6 +55,6 @@ public class RouterTest {
     }
 
     private HTTPRequest newRequest(HTTPMethod method, String path) {
-        return new HTTPRequest(method.name(), path);
+        return new HTTPRequest(method.name(), new HTTPPath(path));
     }
 }

@@ -2,10 +2,12 @@ package controllers;
 
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPMethod;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.*;
+import static request.HTTPMethod.*;
 import static org.junit.Assert.*;
 import static response.StatusLine.NOT_ALLOWED;
 
@@ -25,6 +27,8 @@ public class ControllerTest {
         assertTrue(isNotAllowed(controller.respondTo(newRequest(HEAD))));
         assertTrue(isNotAllowed(controller.respondTo(newRequest(POST))));
         assertTrue(isNotAllowed(controller.respondTo(newRequest(OPTIONS))));
+        assertTrue(isNotAllowed(controller.respondTo(newRequest(PATCH))));
+        assertTrue(isNotAllowed(controller.respondTo(newRequest(DELETE))));
         assertTrue(isNotAllowed(controller.respondTo(newRequest(INVALID))));
     }
 
@@ -33,6 +37,6 @@ public class ControllerTest {
     }
 
     private HTTPRequest newRequest(HTTPMethod method) {
-        return new HTTPRequest(method.name(), "/");
+        return new HTTPRequest(method.name(), new HTTPPath("/"));
     }
 }

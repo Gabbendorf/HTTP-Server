@@ -1,10 +1,11 @@
 package controllers;
 
+import request.HTTPMethod;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
 import static response.StatusLine.*;
-import static controllers.HTTPMethod.create;
+import static request.HTTPMethod.create;
 
 public class Controller {
 
@@ -21,6 +22,10 @@ public class Controller {
                 return post(request);
             case OPTIONS:
                 return options(request);
+            case PATCH:
+                return patch(request);
+            case DELETE:
+                return delete(request);
             case INVALID:
                 return incorrect(request);
             default:
@@ -48,7 +53,15 @@ public class Controller {
         return notAllowedResponse();
     }
 
-    protected HTTPResponse incorrect(HTTPRequest request) {
+    protected HTTPResponse patch(HTTPRequest request) {
+        return notAllowedResponse();
+    }
+
+    protected HTTPResponse delete(HTTPRequest request) {
+        return notAllowedResponse();
+    }
+
+    private HTTPResponse incorrect(HTTPRequest request) {
         return notAllowedResponse();
     }
 

@@ -1,20 +1,21 @@
 package controllers;
 
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
-import static controllers.HTTPMethod.POST;
+import static request.HTTPMethod.POST;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 
-public class FormPageTest {
+public class FormControllerTest {
 
     @Test
     public void respondsWithOkToPostRequest() {
-        FormPage formPage = new FormPage();
+        FormController formController = new FormController();
 
-        HTTPResponse response = formPage.post(new HTTPRequest(POST.method, "/"));
+        HTTPResponse response = formController.post(new HTTPRequest(POST.method, new HTTPPath("/")));
 
         assertEquals(OK.message, response.getStatusLine());
     }

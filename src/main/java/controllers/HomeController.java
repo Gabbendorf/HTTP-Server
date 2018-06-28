@@ -1,20 +1,22 @@
 package controllers;
 
+import controllers.fileSystem.FileSystem;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
 import static response.StatusLine.OK;
 
-public class MethodOptions2Page extends Controller {
+public class HomeController extends Controller {
 
-    @Override
-    public HTTPResponse options(HTTPRequest request) {
-        return new HTTPResponse(OK, "Allow: GET,HEAD,OPTIONS", "");
+    private FileSystem fileSystem;
+
+    public HomeController(FileSystem fileSystem) {
+        this.fileSystem = fileSystem;
     }
 
     @Override
     public HTTPResponse get(HTTPRequest request) {
-        return new HTTPResponse(OK);
+        return new HTTPResponse(OK, fileSystem.rootContent());
     }
 
     @Override

@@ -10,8 +10,8 @@ public class RequestParser {
         return requestLineElements(requestLine)[0];
     }
 
-    public String path(String requestLine) {
-        return requestLineElements(requestLine)[1];
+    public HTTPPath path(String requestLine) {
+        return new HTTPPath(requestLineElements(requestLine)[1]);
     }
 
     public Map<String, String> headers(List<String> headers) {
