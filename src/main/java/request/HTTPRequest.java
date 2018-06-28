@@ -6,40 +6,51 @@ public class HTTPRequest {
 
     private String body;
     private String method;
-    private String path;
+    private HTTPPath path;
     private Map<String, String> headers;
 
-    public HTTPRequest(String method, String path, Map<String, String> headers, String body) {
+    public HTTPRequest(String method, HTTPPath path, Map<String, String> headers, String body) {
         this.method = method;
         this.path = path;
         this.headers = headers;
         this.body = body;
     }
 
-    public HTTPRequest(String method, String path, Map<String, String> headers) {
+    public HTTPRequest(String method, HTTPPath path, Map<String, String> headers) {
         this.method = method;
         this.path = path;
         this.headers = headers;
     }
 
-    public HTTPRequest(String method, String path) {
+    public HTTPRequest(String method, HTTPPath path) {
         this.method = method;
         this.path = path;
     }
 
+    public HTTPRequest(String method, HTTPPath path, String body) {
+        this.method = method;
+        this.path = path;
+        this.body = body;
+    }
+
     public String getMethod() {
-        return this.method;
+        return method;
     }
 
     public String getPath() {
-        if (containsQueryString(path)) {
-            return path.split("\\?")[0];
-        }
-        return path;
+        return path.getFullPath();
+    }
+
+    public String getFirstPathSegment() {
+        return path.getFirstSegment();
+    }
+
+    public String getLastPathSegment() {
+        return path.getLastSegment();
     }
 
     public String getQueryString() {
-        return path.split("\\?")[1];
+        return path.getQueryString();
     }
 
     public String getRequestLine() {
@@ -54,9 +65,5 @@ public class HTTPRequest {
 
     public String getBody() {
         return body;
-    }
-
-    private boolean containsQueryString(String path) {
-        return path.contains("?");
     }
 }

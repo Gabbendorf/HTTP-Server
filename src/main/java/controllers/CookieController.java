@@ -5,7 +5,7 @@ import response.HTTPResponse;
 
 import static response.StatusLine.OK;
 
-public class CookiePage extends Controller {
+public class CookieController extends Controller {
 
     @Override
     public HTTPResponse get(HTTPRequest request ) {

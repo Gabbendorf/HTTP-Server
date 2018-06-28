@@ -5,10 +5,10 @@ import response.HTTPResponse;
 
 import static response.StatusLine.OK;
 
-public class FormPage extends Controller {
+public class PutTargetController extends Controller {
 
     @Override
-    public HTTPResponse post(HTTPRequest request) {
+    public HTTPResponse put(HTTPRequest request) {
         return new HTTPResponse(OK);
     }
 }

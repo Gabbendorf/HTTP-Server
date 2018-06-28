@@ -3,6 +3,7 @@ package controllers;
 import org.junit.Before;
 import org.junit.Test;
 import request.HTTPMethod;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -13,30 +14,30 @@ import static request.HTTPMethod.*;
 import static org.junit.Assert.*;
 import static response.StatusLine.NOT_FOUND;
 
-public class NotFoundPageTest {
+public class NotFoundControllerTest {
 
-    private NotFoundPage notFoundPage;
+    private NotFoundController notFoundController;
     private List<String> responses = new ArrayList<>();
 
     @Before
     public void createInstance() {
-        notFoundPage = new NotFoundPage();
+        notFoundController = new NotFoundController();
     }
 
     @Test
     public void respondsWithNotFoundForAllRequests() {
-        addResponse(notFoundPage.get(newRequest(GET, "/")));
-        addResponse(notFoundPage.post(newRequest(POST, "/")));
-        addResponse(notFoundPage.put(newRequest(PUT, "/")));
-        addResponse(notFoundPage.head(newRequest(HEAD, "/")));
-        addResponse(notFoundPage.patch(newRequest(PATCH, "/")));
-        addResponse(notFoundPage.options(newRequest(OPTIONS, "/")));
+        addResponse(notFoundController.get(newRequest(GET, "/")));
+        addResponse(notFoundController.post(newRequest(POST, "/")));
+        addResponse(notFoundController.put(newRequest(PUT, "/")));
+        addResponse(notFoundController.head(newRequest(HEAD, "/")));
+        addResponse(notFoundController.patch(newRequest(PATCH, "/")));
+        addResponse(notFoundController.options(newRequest(OPTIONS, "/")));
 
         assertTrue(areAllNotFoundResponses());
     }
 
     private HTTPRequest newRequest(HTTPMethod method, String path) {
-        return new HTTPRequest(method.method, path);
+        return new HTTPRequest(method.method, new HTTPPath(path));
     }
 
     private void addResponse(HTTPResponse response) {

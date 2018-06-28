@@ -11,7 +11,8 @@ public enum HTTPMethod {
     POST("POST"),
     PUT("PUT"),
     PATCH("PATCH"),
-    INVALID("INVALID");
+    INVALID("INVALID"),
+    DELETE("DELETE");
 
     public final String method;
 

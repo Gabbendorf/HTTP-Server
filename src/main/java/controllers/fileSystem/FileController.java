@@ -9,11 +9,11 @@ import java.security.NoSuchAlgorithmException;
 
 import static response.StatusLine.*;
 
-public class FilePage extends Controller {
+public class FileController extends Controller {
 
     private FileSystem fileSystem;
 
-    public FilePage(FileSystem fileSystem) {
+    public FileController(FileSystem fileSystem) {
         this.fileSystem = fileSystem;
     }
 

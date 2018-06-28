@@ -6,7 +6,7 @@ import response.HTTPResponse;
 import static response.StatusLine.OK;
 import static response.StatusLine.TEAPOT;
 
-public class TeaPage extends Controller {
+public class TeaController extends Controller {
 
     @Override
     public HTTPResponse get(HTTPRequest request) {

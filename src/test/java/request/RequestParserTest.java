@@ -32,9 +32,9 @@ public class RequestParserTest {
 
     @Test
     public void parsesRequestPath() {
-        String path = parser.path(requestLine);
+        HTTPPath path = parser.path(requestLine);
 
-        assertEquals("/", path);
+        assertEquals("/", path.getFullPath());
     }
 
     @Test

@@ -19,11 +19,11 @@ public class Router {
 
     public HTTPResponse route(HTTPRequest request) {
         logger.log(request.getRequestLine());
-        Controller controller = getController(request.getPath());
+        Controller controller = getController(request.getFirstPathSegment());
         return controller.respondTo(request);
     }
 
     private Controller getController(String requestPath) {
-        return controllers.getOrDefault(requestPath, new NotFoundPage());
+        return controllers.getOrDefault(requestPath, new NotFoundController());
     }
 }

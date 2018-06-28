@@ -7,6 +7,8 @@ import exceptions.NotSupportedEncodingException;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileSystem {
 
@@ -43,6 +45,22 @@ public class FileSystem {
         }
     }
 
+    private File[] rootFiles() {
+        return new File(root).listFiles();
+    }
+
+    public List<String> rootFilesNames() {
+        List<String> filesNames = new ArrayList<>();
+        for (File file : rootFiles()) {
+            filesNames.add(file.getName());
+        }
+        return filesNames;
+    }
+
+    public String rootContent() {
+        return String.join("\n", rootFilesNames());
+    }
+
     private void tryCloseWriter() {
         if (writer != null) {
             writer.close();
@@ -53,5 +71,15 @@ public class FileSystem {
         File file = new File(root + path);
         file.getParentFile().mkdirs();
         return file;
+    }
+
+    public boolean fileDoesNotExist(String path) {
+        String fileName = path.split("/")[1];
+        return !rootFilesNames().contains(fileName);
+    }
+
+    public void deleteFile(String path) {
+        File fileToDelete = new File(root + path);
+        fileToDelete.delete();
     }
 }

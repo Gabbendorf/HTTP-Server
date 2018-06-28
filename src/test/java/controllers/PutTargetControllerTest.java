@@ -1,6 +1,7 @@
 package controllers;
 
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -8,13 +9,13 @@ import static request.HTTPMethod.PUT;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 
-public class PutTargetPageTest {
+public class PutTargetControllerTest {
 
     @Test
     public void respondsWithOkToPutRequest() {
-        PutTargetPage putTargetPage = new PutTargetPage();
+        PutTargetController putTargetController = new PutTargetController();
 
-        HTTPResponse response = putTargetPage.put(new HTTPRequest(PUT.method, "/"));
+        HTTPResponse response = putTargetController.put(new HTTPRequest(PUT.method, new HTTPPath("/")));
 
         assertEquals(OK.message, response.getStatusLine());
     }

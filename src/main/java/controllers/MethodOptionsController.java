@@ -5,7 +5,7 @@ import response.HTTPResponse;
 
 import static response.StatusLine.OK;
 
-public class MethodOptionsPage extends Controller {
+public class MethodOptionsController extends Controller {
 
     @Override
     public HTTPResponse options(HTTPRequest request) {

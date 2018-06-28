@@ -4,6 +4,7 @@ import controllers.fileSystem.FileSystem;
 import request.HTTPMethod;
 import org.junit.Before;
 import org.junit.Test;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -22,7 +23,7 @@ public class RouterTest {
     @Before
     public void createInstances() {
         logger = new Logger();
-        router = new Router(logger, new FileSystem(""));
+        router = new Router(logger, new FileSystem("/"));
     }
 
     @Test
@@ -54,6 +55,6 @@ public class RouterTest {
     }
 
     private HTTPRequest newRequest(HTTPMethod method, String path) {
-        return new HTTPRequest(method.name(), path);
+        return new HTTPRequest(method.name(), new HTTPPath(path));
     }
 }

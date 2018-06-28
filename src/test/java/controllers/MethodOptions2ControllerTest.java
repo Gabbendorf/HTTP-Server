@@ -3,6 +3,7 @@ package controllers;
 import org.junit.Before;
 import org.junit.Test;
 import request.HTTPMethod;
+import request.HTTPPath;
 import request.HTTPRequest;
 import response.HTTPResponse;
 
@@ -12,18 +13,18 @@ import static request.HTTPMethod.OPTIONS;
 import static org.junit.Assert.*;
 import static response.StatusLine.OK;
 
-public class MethodOptions2PageTest {
+public class MethodOptions2ControllerTest {
 
-    private MethodOptions2Page methodOptions2page;
+    private MethodOptions2Controller methodOptions2Controller;
 
     @Before
     public void createInstance() {
-        methodOptions2page = new MethodOptions2Page();
+        methodOptions2Controller = new MethodOptions2Controller();
     }
 
     @Test
     public void respondsWithOkAndAllowHeaderToOptionsRequest() {
-        HTTPResponse response = methodOptions2page.options(newRequest(OPTIONS));
+        HTTPResponse response = methodOptions2Controller.options(newRequest(OPTIONS));
 
         assertEquals(OK.message, response.getStatusLine());
         assertEquals("Allow: GET,HEAD,OPTIONS", response.getHeaders());
@@ -31,19 +32,19 @@ public class MethodOptions2PageTest {
 
     @Test
     public void respondsWithOkToGetRequest() {
-        HTTPResponse response = methodOptions2page.get(newRequest(GET));
+        HTTPResponse response = methodOptions2Controller.get(newRequest(GET));
 
         assertEquals(OK.message, response.getStatusLine());
     }
 
     @Test
     public void respondsWithOkToHeadRequest() {
-        HTTPResponse response = methodOptions2page.get(newRequest(HEAD));
+        HTTPResponse response = methodOptions2Controller.get(newRequest(HEAD));
 
         assertEquals(OK.message, response.getStatusLine());
     }
 
     private HTTPRequest newRequest(HTTPMethod method) {
-        return new HTTPRequest(method.method, "/");
+        return new HTTPRequest(method.method, new HTTPPath("/"));
     }
 }
