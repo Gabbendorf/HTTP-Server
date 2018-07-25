@@ -18,7 +18,7 @@ public class RequestReader {
     }
 
     public HTTPRequest readRequest() {
-        String statusLine = readLine();
+        String requestLine = readLine();
         List<String> headers = new ArrayList<>();
         StringBuilder body = new StringBuilder();
         String line;
@@ -29,8 +29,8 @@ public class RequestReader {
             }
             headers.add(line);
         }
-        return new HTTPRequest(parser.method(statusLine),
-                               parser.path(statusLine),
+        return new HTTPRequest(parser.method(requestLine),
+                               parser.path(requestLine),
                                parser.headers(headers),
                                body.toString());
     }
